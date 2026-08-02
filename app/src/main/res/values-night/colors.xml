@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="md_primary">#BAC3FF</color>
+    <color name="md_primary_dark">#7A85D6</color>
+    <color name="md_on_primary">#1A2478</color>
+    <color name="md_primary_container">#333F8E</color>
+    <color name="md_on_primary_container">#DEE1FF</color>
+
+    <color name="md_secondary">#C5C4DD</color>
+    <color name="md_secondary_container">#444559</color>
+
+    <color name="md_tertiary_amber">#F0C25E</color>
+    <color name="md_tertiary_amber_container">#5C4600</color>
+
+    <color name="md_surface">#131318</color>
+    <color name="md_surface_variant">#46464F</color>
+    <color name="md_on_surface">#E5E1E9</color>
+    <color name="md_on_surface_variant">#C7C5D0</color>
+    <color name="md_outline">#90909A</color>
+    <color name="md_surface_container">#1F1F27</color>
+    <color name="md_surface_container_high">#292931</color>
+
+    <color name="status_green">#8FDB8F</color>
+    <color name="status_green_container">#1E4620</color>
+    <color name="status_yellow">#F0C25E</color>
+    <color name="status_yellow_container">#4A3800</color>
+    <color name="status_red">#FFB3AB</color>
+    <color name="status_red_container">#5C0F0A</color>
+    <color name="status_neutral">#46464F</color>
+
+    <color name="gradient_start">#333F8E</color>
+    <color name="gradient_end">#4A3E8C</color>
+</resources>

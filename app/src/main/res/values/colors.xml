@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+        <color name="md_primary">#4F5FAD</color>
+        <color name="md_primary_dark">#3A4890</color>
+        <color name="md_on_primary">#FFFFFF</color>
+        <color name="md_primary_container">#DEE1FF</color>
+        <color name="md_on_primary_container">#00105C</color>
+
+        <color name="md_secondary">#5C5D72</color>
+        <color name="md_secondary_container">#E1E0F9</color>
+
+        <color name="md_tertiary_amber">#B8860B</color>
+        <color name="md_tertiary_amber_container">#FFE8B8</color>
+
+        <!-- Surfaces -->
+        <color name="md_surface">#FCFBFF</color>
+        <color name="md_surface_variant">#E4E1EC</color>
+        <color name="md_on_surface">#1B1B23</color>
+        <color name="md_on_surface_variant">#46464F</color>
+        <color name="md_outline">#767680</color>
+        <color name="md_surface_container">#F2F0F7</color>
+        <color name="md_surface_container_high">#ECE9F3</color>
+
+        <!-- Status -->
+        <color name="status_green">#2E7D32</color>
+        <color name="status_green_container">#C8F5C8</color>
+        <color name="status_yellow">#B8860B</color>
+        <color name="status_yellow_container">#FFEDBB</color>
+        <color name="status_red">#C62828</color>
+        <color name="status_red_container">#FFD9D6</color>
+        <color name="status_neutral">#D6D3DE</color>
+
+        <!-- Gradient hero card -->
+        <color name="gradient_start">#4F5FAD</color>
+        <color name="gradient_end">#7A6FC4</color>
+
+
+    </resources>
