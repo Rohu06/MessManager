@@ -108,6 +108,15 @@
     <string name="msg_restore_success">Backup restored. Restarting app…</string>
     <string name="msg_confirm_restore">This will replace all current meal data with the selected backup file. This cannot be undone. Continue?</string>
     <string name="label_explore">Explore</string>
+    <string name="label_greeting">Good %s 👋</string>
+    <string name="label_today_meals">Today\'s Meals</string>
+    <string name="desc_nav_history">Past meal records</string>
+    <string name="desc_nav_calendar">Monthly overview</string>
+    <string name="desc_nav_statistics">Usage insights</string>
+    <string name="desc_nav_settings">Preferences &amp; data</string>
+    <string name="label_used">Used</string>
+    <string name="label_lunch_short">Lunch</string>
+    <string name="label_dinner_short">Dinner</string>
     <string name="subtitle_reminder_settings">Get nudged when it\'s time to eat</string>
     <string name="subtitle_add_meal">Log what you ate and when</string>
     <string name="label_section_date">Date</string>
@@ -117,4 +126,13 @@
     <string name="title_cycle_start_date">Cycle Start Date</string>
     <string name="msg_cycle_start_updated">Cycle start date updated</string>
     <string name="subtitle_settings">Manage your coupons, reminders, and data</string>
+    <string name="subtitle_total_coupons">Monthly meal coupon limit</string>
+    <string name="subtitle_cycle_start">When your billing cycle begins</string>
+    <string name="subtitle_reset_month">Clear all entries this month</string>
+    <string name="subtitle_dark_mode">Switch between light and dark themes</string>
+    <string name="subtitle_reminders">Lunch &amp; dinner notification times</string>
+    <string name="subtitle_backup">Export data to a file</string>
+    <string name="subtitle_restore">Import a previous backup</string>
+    <string name="subtitle_about">Learn more about this app</string>
+    <string name="subtitle_privacy">How your data is handled</string>
 </resources>

@@ -5,41 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="32dp">
 
-        <!-- Title -->
+        <!-- ═══════════════ HEADER ═══════════════ -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_settings"
             android:textAppearance="?attr/textAppearanceHeadlineMedium"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:letterSpacing="-0.01" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="28dp"
             android:text="@string/subtitle_settings"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textColor="?attr/colorOnSurfaceVariant" />
 
-        <!-- ================= GENERAL ================= -->
+        <!-- ═══════════════════════ GENERAL ═══════════════════════ -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginStart="4dp"
             android:text="@string/section_general"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
-            android:letterSpacing="0.05" />
+            android:letterSpacing="0.06" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -65,15 +70,16 @@
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:src="@android:drawable/ic_menu_sort_by_size"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_change_total_coupons" />
                     </FrameLayout>
 
                     <TextView
@@ -81,6 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/title_change_total_coupons"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -88,15 +95,17 @@
                         android:id="@+id/tvTotalCouponsValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginEnd="4dp"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="?attr/colorPrimary"
+                        android:fontFamily="sans-serif-medium"
                         tools:text="60" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right" />
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
                 </LinearLayout>
 
@@ -106,45 +115,63 @@
                 <LinearLayout
                     android:id="@+id/rowCycleStartDate"
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
+                    android:layout_height="72dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:src="@android:drawable/ic_menu_my_calendar"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_cycle_start_date" />
                     </FrameLayout>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="14dp"
-                        android:text="@string/title_cycle_start_date"
-                        android:textAppearance="?attr/textAppearanceBodyLarge" />
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_cycle_start_date"
+                            android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:text="@string/subtitle_cycle_start"
+                            android:textAppearance="?attr/textAppearanceBodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvCycleStartDateValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
+                        android:layout_marginEnd="4dp"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textColor="?attr/colorPrimary"
+                        android:fontFamily="sans-serif-medium"
                         tools:text="21 July" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right" />
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
                 </LinearLayout>
 
@@ -154,36 +181,53 @@
                 <LinearLayout
                     android:id="@+id/rowResetMonth"
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
+                    android:layout_height="72dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:src="@android:drawable/ic_menu_revert"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_reset_month" />
                     </FrameLayout>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="14dp"
-                        android:text="@string/title_reset_month"
-                        android:textAppearance="?attr/textAppearanceBodyLarge" />
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_reset_month"
+                            android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:text="@string/subtitle_reset_month"
+                            android:textAppearance="?attr/textAppearanceBodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right" />
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
                 </LinearLayout>
 
@@ -198,15 +242,16 @@
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:src="@android:drawable/ic_menu_preferences"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            android:src="@drawable/ic_dark_mode"
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_dark_mode" />
                     </FrameLayout>
 
                     <TextView
@@ -214,6 +259,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="14dp"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/title_dark_mode"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -227,17 +273,18 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ================= NOTIFICATIONS ================= -->
+        <!-- ═══════════════════════ NOTIFICATIONS ═══════════════════════ -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginStart="4dp"
             android:text="@string/section_notifications"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
-            android:letterSpacing="0.05" />
+            android:letterSpacing="0.06" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -257,15 +304,16 @@
                 android:paddingHorizontal="16dp">
 
                 <FrameLayout
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/bg_icon_chip">
                     <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_lock_idle_alarm"
-                        app:tint="?attr/colorOnPrimaryContainer" />
+                        app:tint="?attr/colorOnPrimaryContainer"
+                        android:contentDescription="@string/title_reminder_settings" />
                 </FrameLayout>
 
                 <TextView
@@ -279,22 +327,24 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ================= DATA ================= -->
+        <!-- ═══════════════════════ DATA ═══════════════════════ -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginStart="4dp"
             android:text="@string/section_data"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
-            android:letterSpacing="0.05" />
+            android:letterSpacing="0.06" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -309,6 +359,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Backup -->
                 <LinearLayout
                     android:id="@+id/rowBackup"
                     android:layout_width="match_parent"
@@ -319,15 +370,16 @@
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:src="@android:drawable/ic_menu_save"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_backup_database" />
                     </FrameLayout>
 
                     <TextView
@@ -341,12 +393,14 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right" />
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
                 </LinearLayout>
 
                 <View style="@style/SettingsDivider" />
 
+                <!-- Restore -->
                 <LinearLayout
                     android:id="@+id/rowRestore"
                     android:layout_width="match_parent"
@@ -357,15 +411,16 @@
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:src="@android:drawable/ic_menu_revert"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_restore_database" />
                     </FrameLayout>
 
                     <TextView
@@ -379,24 +434,26 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right" />
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
                 </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ================= ABOUT ================= -->
+        <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginStart="4dp"
             android:text="@string/section_about"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
-            android:letterSpacing="0.05" />
+            android:letterSpacing="0.06" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -411,6 +468,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- About -->
                 <LinearLayout
                     android:id="@+id/rowAbout"
                     android:layout_width="match_parent"
@@ -421,15 +479,16 @@
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:src="@android:drawable/ic_menu_info_details"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            android:src="@drawable/ic_info"
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_about" />
                     </FrameLayout>
 
                     <TextView
@@ -443,12 +502,14 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right" />
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
                 </LinearLayout>
 
                 <View style="@style/SettingsDivider" />
 
+                <!-- Privacy -->
                 <LinearLayout
                     android:id="@+id/rowPrivacy"
                     android:layout_width="match_parent"
@@ -459,15 +520,16 @@
                     android:paddingHorizontal="16dp">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/bg_icon_chip">
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:src="@android:drawable/ic_lock_lock"
-                            app:tint="?attr/colorOnPrimaryContainer" />
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_privacy" />
                     </FrameLayout>
 
                     <TextView
@@ -481,12 +543,14 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_right" />
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
                 </LinearLayout>
 
                 <View style="@style/SettingsDivider" />
 
+                <!-- Version -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
@@ -494,11 +558,24 @@
                     android:orientation="horizontal"
                     android:paddingHorizontal="16dp">
 
+                    <FrameLayout
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info"
+                            app:tint="?attr/colorOnPrimaryContainer"
+                            android:contentDescription="@string/title_version" />
+                    </FrameLayout>
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_version"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -506,9 +583,10 @@
                         android:id="@+id/tvVersionValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
                         android:textColor="?attr/colorOnSurfaceVariant"
-                        tools:text="1.0" />
+                        android:fontFamily="sans-serif-medium"
+                        tools:text="2.0" />
 
                 </LinearLayout>
 
@@ -517,7 +595,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="32dp" />
+            android:layout_height="24dp" />
 
     </LinearLayout>
 

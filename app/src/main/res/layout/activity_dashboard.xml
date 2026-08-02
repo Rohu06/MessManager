@@ -10,191 +10,400 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="96dp"
-        android:fillViewport="true">
+        android:paddingBottom="100dp"
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- ===================== HEADER ===================== -->
+            <!-- ═══════════════════════ HEADER ═══════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="24dp"
                 android:paddingTop="28dp"
                 android:paddingBottom="4dp">
 
-                <TextView
-                    android:id="@+id/tvCurrentMonth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="13sp"
-                    android:letterSpacing="0.05"
-                    tools:text="JULY 2026" />
-
-                <TextView
-                    android:id="@+id/tvCurrentDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="sans-serif"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    tools:text="Wednesday, 22" />
-            </LinearLayout>
-
-            <!-- ===================== HERO CARD: REMAINING COUPONS ===================== -->
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/bg_gradient_hero"
-                android:elevation="4dp"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp">
-
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvCurrentMonth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_coupons_remaining"
-                        android:textColor="#D8DAFF"
-                        android:textSize="13sp"
                         android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.03" />
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="13sp"
+                        android:letterSpacing="0.08"
+                        tools:text="AUGUST 2026" />
+
+                    <TextView
+                        android:id="@+id/tvCurrentDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.02"
+                        tools:text="Saturday, 2" />
+                </LinearLayout>
+
+                <!-- Profile avatar chip -->
+                <FrameLayout
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:background="@drawable/bg_icon_chip">
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_menu_myplaces"
+                        app:tint="?attr/colorOnPrimaryContainer"
+                        android:contentDescription="@string/app_name" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <!-- ═══════════════════════ HERO CARD ═══════════════════════ -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginHorizontal="20dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="8dp"
+                app:strokeWidth="0dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_hero_card">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal"
-                        android:gravity="bottom">
-
-                        <TextView
-                            android:id="@+id/tvRemainingCoupons"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:textColor="#FFFFFF"
-                            android:textSize="56sp"
-                            tools:text="42" />
-
-                        <TextView
-                            android:id="@+id/tvTotalCoupons"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginBottom="10dp"
-                            android:textColor="#D8DAFF"
-                            android:textSize="15sp"
-                            tools:text="of 60 total" />
-                    </LinearLayout>
-
-                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:layout_marginTop="18dp"
-                        android:background="#332D3480">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:paddingTop="28dp"
+                        android:paddingBottom="20dp"
+                        android:paddingHorizontal="20dp">
 
-                        <ProgressBar
-                            android:id="@+id/progressMonthly"
-                            style="?android:attr/progressBarStyleHorizontal"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_coupons_remaining"
+                            android:textColor="#C8CBFF"
+                            android:textSize="12sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.12"
+                            android:textAllCaps="true" />
+
+                        <!-- Circular progress ring -->
+                        <FrameLayout
+                            android:layout_width="190dp"
+                            android:layout_height="190dp"
+                            android:layout_marginTop="16dp">
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/progressMonthly"
+                                android:layout_width="190dp"
+                                android:layout_height="190dp"
+                                android:layout_gravity="center"
+                                android:max="100"
+                                app:indicatorColor="#FFFFFF"
+                                app:trackColor="#26FFFFFF"
+                                app:trackThickness="10dp"
+                                app:indicatorSize="170dp"
+                                app:trackCornerRadius="5dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tvRemainingCoupons"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="50sp"
+                                    android:letterSpacing="-0.04"
+                                    tools:text="42" />
+
+                                <TextView
+                                    android:id="@+id/tvTotalCoupons"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="0dp"
+                                    android:textColor="#B8BBFF"
+                                    android:textSize="13sp"
+                                    android:fontFamily="sans-serif"
+                                    tools:text="of 60 total" />
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <!-- ── Summary stat chips ── -->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:max="100"
-                            android:progressTint="#FFFFFF"
-                            android:progressBackgroundTint="#00000000" />
-                    </FrameLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:orientation="horizontal"
+                            android:gravity="center">
 
-                </LinearLayout>
-            </FrameLayout>
+                            <!-- Used -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="5dp"
+                                android:background="@drawable/bg_hero_stat_chip"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingVertical="12dp">
 
-            <!-- ===================== TODAY'S STATUS PILLS ===================== -->
+                                <TextView
+                                    android:id="@+id/tvUsedCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="20sp"
+                                    android:fontFamily="sans-serif-medium"
+                                    tools:text="18" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/label_used"
+                                    android:textColor="#B8BBFF"
+                                    android:textSize="11sp"
+                                    android:fontFamily="sans-serif-medium" />
+                            </LinearLayout>
+
+                            <!-- Lunch -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginHorizontal="5dp"
+                                android:background="@drawable/bg_hero_stat_chip"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingVertical="12dp">
+
+                                <TextView
+                                    android:id="@+id/tvHeroLunchCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="20sp"
+                                    android:fontFamily="sans-serif-medium"
+                                    tools:text="10" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/label_lunch_short"
+                                    android:textColor="#B8BBFF"
+                                    android:textSize="11sp"
+                                    android:fontFamily="sans-serif-medium" />
+                            </LinearLayout>
+
+                            <!-- Dinner -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:background="@drawable/bg_hero_stat_chip"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingVertical="12dp">
+
+                                <TextView
+                                    android:id="@+id/tvHeroDinnerCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="20sp"
+                                    android:fontFamily="sans-serif-medium"
+                                    tools:text="8" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/label_dinner_short"
+                                    android:textColor="#B8BBFF"
+                                    android:textSize="11sp"
+                                    android:fontFamily="sans-serif-medium" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ═══════════════════════ TODAY'S MEALS SECTION ═══════════════════════ -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginHorizontal="24dp"
+                android:text="@string/label_today_meals"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.01" />
+
+            <!-- Status pills -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <!-- Lunch pill -->
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/pillLunch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
-                    android:background="@drawable/bg_status_pill_pending"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="14dp">
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_lunch"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textSize="12sp"
-                        android:fontFamily="sans-serif-medium" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="16dp">
 
-                    <TextView
-                        android:id="@+id/tvLunchToday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="15sp"
-                        android:fontFamily="sans-serif-medium"
-                        tools:text="Pending" />
-                </LinearLayout>
+                        <FrameLayout
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_pill_icon_lunch">
 
-                <LinearLayout
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_lunch"
+                                app:tint="#E6A817"
+                                android:contentDescription="@string/label_lunch" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/label_lunch"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:textSize="12sp"
+                                android:fontFamily="sans-serif-medium" />
+
+                            <TextView
+                                android:id="@+id/tvLunchToday"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="15sp"
+                                android:fontFamily="sans-serif-medium"
+                                tools:text="Pending" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Dinner pill -->
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/pillDinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
-                    android:background="@drawable/bg_status_pill_pending"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="14dp">
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_dinner"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textSize="12sp"
-                        android:fontFamily="sans-serif-medium" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="16dp">
 
-                    <TextView
-                        android:id="@+id/tvDinnerToday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="15sp"
-                        android:fontFamily="sans-serif-medium"
-                        tools:text="Pending" />
-                </LinearLayout>
+                        <FrameLayout
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_pill_icon_dinner">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_dinner"
+                                app:tint="#5C6BC0"
+                                android:contentDescription="@string/label_dinner" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/label_dinner"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:textSize="12sp"
+                                android:fontFamily="sans-serif-medium" />
+
+                            <TextView
+                                android:id="@+id/tvDinnerToday"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="15sp"
+                                android:fontFamily="sans-serif-medium"
+                                tools:text="Pending" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
-            <!-- ===================== QUICK MARK BUTTONS ===================== -->
+            <!-- ═══════════════════════ QUICK MARK BUTTONS ═══════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal">
 
@@ -206,8 +415,16 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
                     app:cornerRadius="26dp"
+                    app:icon="@drawable/ic_check"
+                    app:iconGravity="textStart"
+                    app:iconSize="18dp"
+                    app:iconPadding="8dp"
+                    app:iconTint="?attr/colorOnPrimary"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:text="@string/action_mark_lunch"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    android:textSize="14sp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMarkDinner"
@@ -217,22 +434,31 @@
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
                     app:cornerRadius="26dp"
+                    app:icon="@drawable/ic_check"
+                    app:iconGravity="textStart"
+                    app:iconSize="18dp"
+                    app:iconPadding="8dp"
+                    app:iconTint="?attr/colorOnSecondaryContainer"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:text="@string/action_mark_dinner"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- ===================== SECTION LABEL ===================== -->
+            <!-- ═══════════════════════ SECTION LABEL ═══════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginHorizontal="24dp"
                 android:text="@string/label_explore"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="17sp"
-                android:fontFamily="sans-serif-medium" />
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.01" />
 
-            <!-- ===================== NAVIGATION TILES ===================== -->
+            <!-- ═══════════════════════ NAVIGATION TILES — ROW 1 ═══════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -240,6 +466,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal">
 
+                <!-- History tile -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnHistory"
                     android:layout_width="0dp"
@@ -247,19 +474,23 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
                     app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="22dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    app:rippleColor="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:minHeight="110dp">
 
                         <FrameLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
                             android:background="@drawable/bg_icon_chip">
 
                             <ImageView
@@ -267,20 +498,31 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:src="@android:drawable/ic_menu_recent_history"
-                                app:tint="?attr/colorOnPrimaryContainer" />
+                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:contentDescription="@string/nav_history" />
                         </FrameLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="14dp"
                             android:text="@string/nav_history"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
                             android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/desc_nav_history"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="sans-serif"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Calendar tile -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnCalendar"
                     android:layout_width="0dp"
@@ -288,19 +530,23 @@
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
                     app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="22dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    app:rippleColor="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:minHeight="110dp">
 
                         <FrameLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
                             android:background="@drawable/bg_icon_chip">
 
                             <ImageView
@@ -308,22 +554,33 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:src="@android:drawable/ic_menu_my_calendar"
-                                app:tint="?attr/colorOnPrimaryContainer" />
+                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:contentDescription="@string/nav_calendar" />
                         </FrameLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="14dp"
                             android:text="@string/nav_calendar"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
                             android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/desc_nav_calendar"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="sans-serif"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
+            <!-- ═══════════════════════ NAVIGATION TILES — ROW 2 ═══════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -331,6 +588,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal">
 
+                <!-- Statistics tile -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnStatistics"
                     android:layout_width="0dp"
@@ -338,19 +596,23 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
                     app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="22dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    app:rippleColor="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:minHeight="110dp">
 
                         <FrameLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
                             android:background="@drawable/bg_icon_chip">
 
                             <ImageView
@@ -358,20 +620,31 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:src="@android:drawable/ic_menu_sort_by_size"
-                                app:tint="?attr/colorOnPrimaryContainer" />
+                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:contentDescription="@string/nav_statistics" />
                         </FrameLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="14dp"
                             android:text="@string/nav_statistics"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
                             android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/desc_nav_statistics"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="sans-serif"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Settings tile -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnSettings"
                     android:layout_width="0dp"
@@ -379,19 +652,23 @@
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
                     app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="22dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    app:rippleColor="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:minHeight="110dp">
 
                         <FrameLayout
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
                             android:background="@drawable/bg_icon_chip">
 
                             <ImageView
@@ -399,17 +676,27 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:src="@android:drawable/ic_menu_preferences"
-                                app:tint="?attr/colorOnPrimaryContainer" />
+                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:contentDescription="@string/nav_settings" />
                         </FrameLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="14dp"
                             android:text="@string/nav_settings"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
                             android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/desc_nav_settings"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="sans-serif"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -418,12 +705,14 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- ═══════════════════════ FAB ═══════════════════════ -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabAddMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
+        android:elevation="8dp"
         android:text="@string/action_add_meal"
         android:textAllCaps="false"
         app:icon="@android:drawable/ic_input_add" />

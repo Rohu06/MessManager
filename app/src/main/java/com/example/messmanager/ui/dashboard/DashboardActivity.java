@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.messmanager.R;
@@ -44,6 +45,12 @@ public class DashboardActivity extends AppCompatActivity {
 
             binding.tvRemainingCoupons.setText(String.valueOf(state.remainingCoupons));
             binding.tvTotalCoupons.setText(getString(R.string.total_coupons_format, state.totalCoupons));
+
+            // Hero stat chips
+            binding.tvUsedCount.setText(String.valueOf(state.mealsUsed));
+            binding.tvHeroLunchCount.setText(String.valueOf(state.lunchCount));
+            binding.tvHeroDinnerCount.setText(String.valueOf(state.dinnerCount));
+
             binding.tvLunchToday.setText(state.lunchMarkedToday
                     ? getString(R.string.status_done) : getString(R.string.status_pending));
             binding.tvDinnerToday.setText(state.dinnerMarkedToday
@@ -55,10 +62,12 @@ public class DashboardActivity extends AppCompatActivity {
 
             binding.btnMarkLunch.setEnabled(!state.lunchMarkedToday);
             binding.btnMarkDinner.setEnabled(!state.dinnerMarkedToday);
-            binding.pillLunch.setBackgroundResource(state.lunchMarkedToday
-                    ? R.drawable.bg_status_pill_done : R.drawable.bg_status_pill_pending);
-            binding.pillDinner.setBackgroundResource(state.dinnerMarkedToday
-                    ? R.drawable.bg_status_pill_done : R.drawable.bg_status_pill_pending);
+
+            // Update pill card background colors
+            binding.pillLunch.setCardBackgroundColor(ContextCompat.getColor(this,
+                    state.lunchMarkedToday ? R.color.status_green_container : R.color.md_surface_container_high));
+            binding.pillDinner.setCardBackgroundColor(ContextCompat.getColor(this,
+                    state.dinnerMarkedToday ? R.color.status_green_container : R.color.md_surface_container_high));
         });
     }
 

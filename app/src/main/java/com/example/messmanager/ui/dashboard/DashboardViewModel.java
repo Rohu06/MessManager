@@ -55,14 +55,16 @@ public class DashboardViewModel extends AndroidViewModel {
     private DashboardUiState buildState(List<MealEntry> entries) {
         int totalCoupons = preferences.getTotalCoupons();
         int mealsUsed = 0;
+        int lunchCount = 0;
+        int dinnerCount = 0;
         boolean lunchToday = false;
         boolean dinnerToday = false;
         String today = DateUtils.getTodayDateString();
 
         if (entries != null) {
             for (MealEntry entry : entries) {
-                if (entry.isLunch()) mealsUsed++;
-                if (entry.isDinner()) mealsUsed++;
+                if (entry.isLunch()) { mealsUsed++; lunchCount++; }
+                if (entry.isDinner()) { mealsUsed++; dinnerCount++; }
                 if (entry.getDate().equals(today)) {
                     lunchToday = entry.isLunch();
                     dinnerToday = entry.isDinner();
@@ -71,7 +73,7 @@ public class DashboardViewModel extends AndroidViewModel {
         }
 
         int remaining = totalCoupons - mealsUsed;
-        return new DashboardUiState(totalCoupons, remaining, mealsUsed, lunchToday, dinnerToday);
+        return new DashboardUiState(totalCoupons, remaining, mealsUsed, lunchCount, dinnerCount, lunchToday, dinnerToday);
     }
 
     public LiveData<DashboardUiState> getUiState() {
@@ -90,14 +92,19 @@ public class DashboardViewModel extends AndroidViewModel {
         public final int totalCoupons;
         public final int remainingCoupons;
         public final int mealsUsed;
+        public final int lunchCount;
+        public final int dinnerCount;
         public final boolean lunchMarkedToday;
         public final boolean dinnerMarkedToday;
 
         public DashboardUiState(int totalCoupons, int remainingCoupons, int mealsUsed,
+                                int lunchCount, int dinnerCount,
                                 boolean lunchMarkedToday, boolean dinnerMarkedToday) {
             this.totalCoupons = totalCoupons;
             this.remainingCoupons = remainingCoupons;
             this.mealsUsed = mealsUsed;
+            this.lunchCount = lunchCount;
+            this.dinnerCount = dinnerCount;
             this.lunchMarkedToday = lunchMarkedToday;
             this.dinnerMarkedToday = dinnerMarkedToday;
         }
