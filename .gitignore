@@ -23,6 +23,7 @@ app/build/
 *.iml
 .gradle/
 local.properties
+.navigation/
 
 # Log files
 *.log
@@ -35,6 +36,7 @@ captures/
 # OS generated files
 .DS_Store
 Thumbs.db
+*.swp
 
 # Key stores / secrets
 *.keystore
