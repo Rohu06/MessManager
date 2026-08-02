@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.messmanager.data.local.entity.MealEntry;
 import com.example.messmanager.data.preferences.AppPreferences;
@@ -18,24 +20,34 @@ import java.util.List;
 /**
  * StatisticsViewModel
  *
- * Computes all monthly statistics — totals, averages, weekly breakdown,
- * and a simple end-of-month coupon projection — from the current
- * month's MealEntry list and the total-coupons preference.
+ * Computes statistics over the user's current mess cycle (since
+ * cycleStartDate) rather than the calendar month, so numbers stay
+ * correct across cycles that don't align to the 1st of the month.
  */
 public class StatisticsViewModel extends AndroidViewModel {
 
     private final MealRepository repository;
     private final AppPreferences preferences;
-    private final LiveData<List<MealEntry>> monthEntries;
+    private final MutableLiveData<String> cycleStartDate = new MutableLiveData<>();
+    private final LiveData<List<MealEntry>> cycleEntries;
     private final MediatorLiveData<MealStatistics> statistics = new MediatorLiveData<>();
 
     public StatisticsViewModel(@NonNull Application application) {
         super(application);
         repository = new MealRepository(application);
         preferences = AppPreferences.getInstance(application);
-        monthEntries = repository.getEntriesForMonth(DateUtils.getCurrentMonth(), DateUtils.getCurrentYear());
 
-        statistics.addSource(monthEntries, entries -> statistics.setValue(compute(entries)));
+        cycleStartDate.setValue(preferences.getCycleStartDate());
+        cycleEntries = Transformations.switchMap(cycleStartDate, repository::getEntriesFromCycleStart);
+
+        statistics.addSource(cycleEntries, entries -> statistics.setValue(compute(entries)));
+    }
+
+    public void refreshCycleStart() {
+        String latest = preferences.getCycleStartDate();
+        if (!latest.equals(cycleStartDate.getValue())) {
+            cycleStartDate.setValue(latest);
+        }
     }
 
     public LiveData<MealStatistics> getStatistics() {
@@ -45,12 +57,14 @@ public class StatisticsViewModel extends AndroidViewModel {
     private MealStatistics compute(List<MealEntry> entries) {
         int totalCoupons = preferences.getTotalCoupons();
         int lunch = 0, dinner = 0, skipped = 0;
-        int[] weekly = new int[5];
+        int[] weekly = new int[6]; // widened slightly since a cycle can run >31 days
 
+        String cycleStart = preferences.getCycleStartDate();
+        Calendar startCal = DateUtils.getCalendarFromDateString(cycleStart);
         Calendar today = Calendar.getInstance();
-        int daysElapsed = today.get(Calendar.DAY_OF_MONTH);
-        int daysInMonth = today.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int daysRemaining = daysInMonth - daysElapsed;
+
+        long daysElapsed = ((today.getTimeInMillis() - startCal.getTimeInMillis()) / (1000L * 60 * 60 * 24)) + 1;
+        if (daysElapsed < 1) daysElapsed = 1;
 
         if (entries != null) {
             for (MealEntry entry : entries) {
@@ -58,21 +72,26 @@ public class StatisticsViewModel extends AndroidViewModel {
                 if (entry.isDinner()) dinner++;
                 if (entry.isSkipped()) skipped++;
 
-                int dayOfMonth = DateUtils.getCalendarFromDateString(entry.getDate()).get(Calendar.DAY_OF_MONTH);
-                int weekIndex = Math.min((dayOfMonth - 1) / 7, 4);
-                weekly[weekIndex] += (entry.isLunch() ? 1 : 0) + (entry.isDinner() ? 1 : 0);
+                long dayOffset = (DateUtils.getCalendarFromDateString(entry.getDate()).getTimeInMillis()
+                        - startCal.getTimeInMillis()) / (1000L * 60 * 60 * 24);
+                int weekIndex = Math.min((int) (dayOffset / 7), 5);
+                if (weekIndex >= 0) {
+                    weekly[weekIndex] += (entry.isLunch() ? 1 : 0) + (entry.isDinner() ? 1 : 0);
+                }
             }
         }
 
         int totalUsed = lunch + dinner;
         int remaining = totalCoupons - totalUsed;
-        float avgPerDay = daysElapsed > 0 ? totalUsed / (float) daysElapsed : 0f;
+        float avgPerDay = totalUsed / (float) daysElapsed;
         int progressPercent = totalCoupons == 0 ? 0 : (int) ((totalUsed / (float) totalCoupons) * 100);
 
-        float projectedAdditionalUse = avgPerDay * daysRemaining;
-        boolean onTrack = projectedAdditionalUse <= remaining;
+        // Assume a cycle roughly matches how many days totalCoupons/avg-use implies isn't known,
+        // so "days remaining" isn't calendar-bound here — instead project until coupons run out.
+        int daysRemainingEstimate = avgPerDay > 0 ? (int) (remaining / avgPerDay) : Integer.MAX_VALUE;
+        boolean onTrack = remaining >= 0;
 
         return new MealStatistics(totalCoupons, remaining, totalUsed, lunch, dinner, skipped,
-                avgPerDay, progressPercent, weekly, onTrack, daysRemaining);
+                avgPerDay, progressPercent, weekly, onTrack, Math.max(daysRemainingEstimate, 0));
     }
 }

@@ -46,4 +46,12 @@ public class SettingsViewModel extends AndroidViewModel {
     public void resetCurrentMonth(MealRepository.SaveCallback callback) {
         repository.resetCurrentMonth(DateUtils.getCurrentMonth(), DateUtils.getCurrentYear(), callback);
     }
+
+    public String getCycleStartDate() {
+        return preferences.getCycleStartDate();
+    }
+
+    public void setCycleStartDate(String date) {
+        preferences.setCycleStartDate(date);
+    }
 }

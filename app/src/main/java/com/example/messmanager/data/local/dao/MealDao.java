@@ -47,4 +47,10 @@ public interface MealDao {
 
     @Query("DELETE FROM meal_entries WHERE month = :month AND year = :year")
     void deleteEntriesForMonth(int month, int year);
+
+    @Query("SELECT * FROM meal_entries WHERE date >= :cycleStartDate ORDER BY date ASC")
+    LiveData<List<MealEntry>> getEntriesFromCycleStart(String cycleStartDate);
+
+
+
 }

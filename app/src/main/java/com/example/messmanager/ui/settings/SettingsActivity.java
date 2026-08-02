@@ -38,6 +38,8 @@ public class SettingsActivity extends AppCompatActivity {
         binding.tvTotalCouponsValue.setText(String.valueOf(viewModel.getTotalCoupons()));
         binding.switchDarkMode.setChecked(viewModel.isDarkModeEnabled());
         binding.tvVersionValue.setText(BuildConfig.VERSION_NAME);
+        binding.tvCycleStartDateValue.setText(
+                com.example.messmanager.util.DateUtils.formatForDisplay(viewModel.getCycleStartDate()));
 
         setupClickListeners();
     }
@@ -73,6 +75,8 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(new android.content.Intent(this, com.example.messmanager.ui.backup.BackupRestoreActivity.class)));
         binding.rowRestore.setOnClickListener(v ->
                 startActivity(new android.content.Intent(this, com.example.messmanager.ui.backup.BackupRestoreActivity.class)));
+
+        binding.rowCycleStartDate.setOnClickListener(v -> showCycleStartDatePicker());
     }
 
     private void showChangeCouponsDialog() {
@@ -121,6 +125,21 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void showComingSoon() {
         Toast.makeText(this, R.string.msg_module_coming_soon, Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void showCycleStartDatePicker() {
+        java.util.Calendar cal = com.example.messmanager.util.DateUtils
+                .getCalendarFromDateString(viewModel.getCycleStartDate());
+
+        new android.app.DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            String picked = com.example.messmanager.util.DateUtils.buildDateString(year, month, dayOfMonth);
+            viewModel.setCycleStartDate(picked);
+            binding.tvCycleStartDateValue.setText(
+                    com.example.messmanager.util.DateUtils.formatForDisplay(picked));
+            Toast.makeText(this, R.string.msg_cycle_start_updated, Toast.LENGTH_SHORT).show();
+        }, cal.get(java.util.Calendar.YEAR), cal.get(java.util.Calendar.MONTH), cal.get(java.util.Calendar.DAY_OF_MONTH))
+                .show();
     }
 
 

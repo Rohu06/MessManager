@@ -122,4 +122,9 @@ public class MealRepository {
             executors.mainThread().post(callback::onSuccess);
         });
     }
+
+    public LiveData<List<MealEntry>> getEntriesFromCycleStart(String cycleStartDate) {
+        return mealDao.getEntriesFromCycleStart(cycleStartDate);
+    }
+
 }

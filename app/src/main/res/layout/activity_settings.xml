@@ -78,6 +78,11 @@
 
                 </LinearLayout>
 
+                <LinearLayout android:id="@+id/rowCycleStartDate" style="@style/SettingsRow">
+                    <TextView style="@style/SettingsRowLabel" android:text="@string/title_cycle_start_date" />
+                    <TextView android:id="@+id/tvCycleStartDateValue" style="@style/SettingsRowValue" tools:text="21 July 2026" />
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

@@ -114,4 +114,21 @@ public class AppPreferences {
                 .putInt(KEY_DINNER_REMINDER_MINUTE, minute)
                 .apply();
     }
+
+    private static final String KEY_CYCLE_START_DATE = "cycle_start_date";
+
+    public String getCycleStartDate() {
+        String stored = prefs.getString(KEY_CYCLE_START_DATE, null);
+        if (stored == null) {
+            // First launch: default the cycle to start today.
+            String today = com.example.messmanager.util.DateUtils.getTodayDateString();
+            setCycleStartDate(today);
+            return today;
+        }
+        return stored;
+    }
+
+    public void setCycleStartDate(String date) {
+        prefs.edit().putString(KEY_CYCLE_START_DATE, date).apply();
+    }
 }

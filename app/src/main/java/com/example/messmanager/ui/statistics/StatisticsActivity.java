@@ -122,4 +122,10 @@ public class StatisticsActivity extends AppCompatActivity {
         binding.barChart.animateY(600);
         binding.barChart.invalidate();
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.refreshCycleStart();
+    }
+
 }

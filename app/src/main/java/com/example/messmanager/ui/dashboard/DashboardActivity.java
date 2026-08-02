@@ -114,5 +114,11 @@ public class DashboardActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.msg_module_coming_soon, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.refreshCycleStart();
+    }
+
 
 }
