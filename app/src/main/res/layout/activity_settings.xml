@@ -14,52 +14,73 @@
         android:padding="20dp">
 
         <!-- Title -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:text="@string/title_settings"
             android:textAppearance="?attr/textAppearanceHeadlineMedium"
             android:textStyle="bold" />
 
-        <!-- ================= GENERAL ================= -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/subtitle_settings"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <!-- ================= GENERAL ================= -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:text="@string/section_general"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
             app:cardCornerRadius="24dp"
-            app:cardElevation="2dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:strokeWidth="1dp">
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Total Coupons -->
                 <LinearLayout
                     android:id="@+id/rowChangeTotalCoupons"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_sort_by_size"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_change_total_coupons"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -67,66 +88,132 @@
                         android:id="@+id/tvTotalCouponsValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="6dp"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         tools:text="60" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/arrow_forward" />
+                        android:src="@drawable/ic_chevron_right" />
 
                 </LinearLayout>
 
-                <LinearLayout android:id="@+id/rowCycleStartDate" style="@style/SettingsRow">
-                    <TextView style="@style/SettingsRowLabel" android:text="@string/title_cycle_start_date" />
-                    <TextView android:id="@+id/tvCycleStartDateValue" style="@style/SettingsRowValue" tools:text="21 July 2026" />
-                </LinearLayout>
+                <View style="@style/SettingsDivider" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorOutlineVariant" />
-
+                <!-- Cycle Start Date -->
                 <LinearLayout
-                    android:id="@+id/rowResetMonth"
+                    android:id="@+id/rowCycleStartDate"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_my_calendar"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/title_cycle_start_date"
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                    <TextView
+                        android:id="@+id/tvCycleStartDateValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        tools:text="21 July" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_chevron_right" />
+
+                </LinearLayout>
+
+                <View style="@style/SettingsDivider" />
+
+                <!-- Reset Month -->
+                <LinearLayout
+                    android:id="@+id/rowResetMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_revert"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_reset_month"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/arrow_forward" />
+                        android:src="@drawable/ic_chevron_right" />
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorOutlineVariant" />
+                <View style="@style/SettingsDivider" />
 
+                <!-- Dark Mode -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_preferences"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_dark_mode"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -138,73 +225,84 @@
                 </LinearLayout>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
         <!-- ================= NOTIFICATIONS ================= -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/section_notifications"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
             app:cardCornerRadius="24dp"
-            app:cardElevation="2dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:strokeWidth="1dp">
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:id="@+id/rowReminders"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="64dp"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="16dp">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_chip">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_lock_idle_alarm"
+                        app:tint="?attr/colorOnPrimaryContainer" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="14dp"
                     android:text="@string/title_reminder_settings"
                     android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/arrow_forward" />
+                    android:src="@drawable/ic_chevron_right" />
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
         <!-- ================= DATA ================= -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/section_data"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
             app:cardCornerRadius="24dp"
-            app:cardElevation="2dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:strokeWidth="1dp">
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -214,77 +312,99 @@
                 <LinearLayout
                     android:id="@+id/rowBackup"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_save"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_backup_database"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/arrow_forward" />
+                        android:src="@drawable/ic_chevron_right" />
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorOutlineVariant" />
+                <View style="@style/SettingsDivider" />
 
                 <LinearLayout
                     android:id="@+id/rowRestore"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_revert"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_restore_database"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/arrow_forward" />
+                        android:src="@drawable/ic_chevron_right" />
 
                 </LinearLayout>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
         <!-- ================= ABOUT ================= -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/section_about"
             android:textAppearance="?attr/textAppearanceLabelLarge"
             android:textColor="?attr/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
             app:cardCornerRadius="24dp"
-            app:cardElevation="2dp"
-            app:strokeColor="?attr/colorOutlineVariant"
-            app:strokeWidth="1dp">
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -294,70 +414,91 @@
                 <LinearLayout
                     android:id="@+id/rowAbout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_info_details"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_about"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/arrow_forward" />
+                        android:src="@drawable/ic_chevron_right" />
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorOutlineVariant" />
+                <View style="@style/SettingsDivider" />
 
                 <LinearLayout
                     android:id="@+id/rowPrivacy"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_icon_chip">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_lock_lock"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:text="@string/title_privacy"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/arrow_forward" />
+                        android:src="@drawable/ic_chevron_right" />
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorOutlineVariant" />
+                <View style="@style/SettingsDivider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="64dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:paddingHorizontal="16dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="50dp"
                         android:text="@string/title_version"
                         android:textAppearance="?attr/textAppearanceBodyLarge" />
 
@@ -366,17 +507,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         tools:text="1.0" />
 
                 </LinearLayout>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="24dp" />
+            android:layout_height="32dp" />
 
     </LinearLayout>
 

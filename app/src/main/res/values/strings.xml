@@ -116,4 +116,5 @@
     <string name="subtitle_statistics">Track your meal usage and monthly insights</string>
     <string name="title_cycle_start_date">Cycle Start Date</string>
     <string name="msg_cycle_start_updated">Cycle start date updated</string>
+    <string name="subtitle_settings">Manage your coupons, reminders, and data</string>
 </resources>
