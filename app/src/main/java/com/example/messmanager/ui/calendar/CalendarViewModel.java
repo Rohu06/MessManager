@@ -69,6 +69,23 @@ public class CalendarViewModel extends AndroidViewModel {
         monthYear.setValue(new int[]{month, year});
     }
 
+    /** Jump back to the current calendar month. */
+    public void goToCurrentMonth() {
+        monthYear.setValue(new int[]{DateUtils.getCurrentMonth(), DateUtils.getCurrentYear()});
+    }
+
+    /**
+     * Force-refreshes the displayed month's data. Used when returning
+     * from AddMealActivity so edits are reflected immediately.
+     */
+    public void refreshCurrentMonth() {
+        int[] current = monthYear.getValue();
+        if (current != null) {
+            // Re-setting the same value triggers Transformations.switchMap
+            monthYear.setValue(current);
+        }
+    }
+
     private void rebuildGrid(List<MealEntry> entries) {
         int[] my = monthYear.getValue();
         int month = my[0];

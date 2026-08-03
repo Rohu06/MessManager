@@ -50,6 +50,8 @@ public class AddMealActivity extends AppCompatActivity {
         setupSaveButton();
         setupDeleteButton();
 
+        binding.btnBack.setOnClickListener(v -> finish());
+
         observeExistingEntry();
     }
 

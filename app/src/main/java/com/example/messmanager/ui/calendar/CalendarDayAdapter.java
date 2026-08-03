@@ -1,5 +1,7 @@
 package com.example.messmanager.ui.calendar;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.messmanager.R;
 import com.example.messmanager.databinding.ItemCalendarDayBinding;
+import com.example.messmanager.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,8 @@ import java.util.List;
  *
  * Renders the 7-column calendar grid. Padding cells (before day 1 of
  * the month) render blank and are non-clickable; real day cells show
- * a colored dot indicating meal status and are clickable.
+ * a colored circular background indicating meal status and are clickable.
+ * Today's date gets an additional primary-color ring highlight.
  */
 public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.ViewHolder> {
 
@@ -28,6 +32,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
 
     private final Listener listener;
     private List<CalendarDay> days = new ArrayList<>();
+    private final String today = DateUtils.getTodayDateString();
 
     public CalendarDayAdapter(Listener listener) {
         this.listener = listener;
@@ -65,16 +70,18 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
         void bind(CalendarDay day) {
             if (day.isPadding()) {
                 binding.tvDayNumber.setText("");
-                binding.viewStatusDot.setVisibility(View.INVISIBLE);
+                binding.viewStatusCircle.setVisibility(View.INVISIBLE);
+                binding.viewTodayRing.setVisibility(View.INVISIBLE);
                 itemView.setClickable(false);
                 itemView.setOnClickListener(null);
                 return;
             }
 
             binding.tvDayNumber.setText(String.valueOf(day.getDayOfMonth()));
-            binding.viewStatusDot.setVisibility(View.VISIBLE);
 
+            // Determine status color and apply tinted circular background
             int colorRes;
+            int bgAlpha = 40; // ~15% opacity for the circle fill
             switch (day.getStatus()) {
                 case GREEN:
                     colorRes = R.color.status_green;
@@ -87,10 +94,32 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
                     break;
                 default:
                     colorRes = R.color.status_neutral;
+                    bgAlpha = 30;
             }
-            binding.viewStatusDot.setBackgroundTintList(
-                    android.content.res.ColorStateList.valueOf(
-                            itemView.getContext().getColor(colorRes)));
+
+            int baseColor = itemView.getContext().getColor(colorRes);
+            int tintedColor = Color.argb(bgAlpha,
+                    Color.red(baseColor), Color.green(baseColor), Color.blue(baseColor));
+
+            binding.viewStatusCircle.setVisibility(View.VISIBLE);
+            binding.viewStatusCircle.setBackgroundTintList(
+                    ColorStateList.valueOf(tintedColor));
+
+            // Set text color: darker for status days, lighter for neutral
+            if (day.getStatus() != CalendarDay.Status.NEUTRAL) {
+                binding.tvDayNumber.setTextColor(itemView.getContext().getColor(colorRes));
+            } else {
+                binding.tvDayNumber.setTextColor(
+                        itemView.getContext().getColorStateList(R.color.md_on_surface).getDefaultColor());
+            }
+
+            // Highlight today with a primary-color ring
+            boolean isToday = day.getDate() != null && day.getDate().equals(today);
+            binding.viewTodayRing.setVisibility(isToday ? View.VISIBLE : View.INVISIBLE);
+            if (isToday) {
+                binding.tvDayNumber.setTextColor(
+                        itemView.getContext().getColor(R.color.md_primary));
+            }
 
             itemView.setClickable(true);
             itemView.setOnClickListener(v -> listener.onDayClick(day));

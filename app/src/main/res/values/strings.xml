@@ -135,4 +135,6 @@
     <string name="subtitle_restore">Import a previous backup</string>
     <string name="subtitle_about">Learn more about this app</string>
     <string name="subtitle_privacy">How your data is handled</string>
+    <string name="action_today">Today</string>
+    <string name="content_desc_back">Go back</string>
 </resources>

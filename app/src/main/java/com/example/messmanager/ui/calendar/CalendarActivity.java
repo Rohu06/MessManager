@@ -15,9 +15,10 @@ import java.util.Calendar;
 /**
  * CalendarActivity
  *
- * Shows a monthly grid with color-coded status dots per day. Prev/Next
+ * Shows a monthly grid with color-coded status circles per day. Prev/Next
  * buttons navigate months; tapping any real (non-padding) day opens
  * AddMealActivity for that date, reusing its existing edit/view form.
+ * A "Today" button in the header allows quick jump back to the current month.
  */
 public class CalendarActivity extends AppCompatActivity {
 
@@ -44,11 +45,20 @@ public class CalendarActivity extends AppCompatActivity {
 
         binding.btnPrevMonth.setOnClickListener(v -> viewModel.goToPreviousMonth());
         binding.btnNextMonth.setOnClickListener(v -> viewModel.goToNextMonth());
+        binding.btnToday.setOnClickListener(v -> viewModel.goToCurrentMonth());
 
         viewModel.getCalendarGrid().observe(this, days -> {
             adapter.submitList(days);
             updateMonthLabel();
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh the grid when returning from AddMealActivity
+        // so newly saved/deleted entries are reflected immediately.
+        viewModel.refreshCurrentMonth();
     }
 
     private void updateMonthLabel() {
