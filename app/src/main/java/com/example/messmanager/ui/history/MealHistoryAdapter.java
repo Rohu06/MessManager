@@ -1,20 +1,25 @@
 package com.example.messmanager.ui.history;
 
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.messmanager.R;
 import com.example.messmanager.data.local.entity.MealEntry;
 import com.example.messmanager.databinding.ItemMealHistoryBinding;
-import com.example.messmanager.util.DateUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * MealHistoryAdapter
@@ -33,6 +38,15 @@ public class MealHistoryAdapter extends RecyclerView.Adapter<MealHistoryAdapter.
 
     private final Listener listener;
     private List<MealEntry> entries = new ArrayList<>();
+
+    private static final SimpleDateFormat SOURCE_FORMAT =
+            new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    private static final SimpleDateFormat DAY_FORMAT =
+            new SimpleDateFormat("d", Locale.US);
+    private static final SimpleDateFormat MONTH_YEAR_FORMAT =
+            new SimpleDateFormat("MMM yyyy", Locale.US);
+    private static final SimpleDateFormat FULL_DATE_FORMAT =
+            new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.US);
 
     public MealHistoryAdapter(Listener listener) {
         this.listener = listener;
@@ -92,25 +106,95 @@ public class MealHistoryAdapter extends RecyclerView.Adapter<MealHistoryAdapter.
         }
 
         void bind(MealEntry entry) {
-            binding.tvDate.setText(DateUtils.formatForDisplay(entry.getDate()));
-
-            if (entry.isSkipped()) {
-                binding.tvStatus.setText(R.string.status_skipped);
-            } else {
-                String lunch = entry.isLunch() ? "Lunch ✓" : "Lunch ✗";
-                String dinner = entry.isDinner() ? "Dinner ✓" : "Dinner ✗";
-                binding.tvStatus.setText(lunch + "   " + dinner);
+            // ── Date parsing ──────────────────────────────────────
+            try {
+                Date date = SOURCE_FORMAT.parse(entry.getDate());
+                binding.tvDayNumber.setText(DAY_FORMAT.format(date));
+                binding.tvMonthYear.setText(MONTH_YEAR_FORMAT.format(date).toUpperCase(Locale.US));
+                binding.tvDate.setText(FULL_DATE_FORMAT.format(date));
+            } catch (ParseException e) {
+                binding.tvDayNumber.setText("–");
+                binding.tvMonthYear.setText("");
+                binding.tvDate.setText(entry.getDate());
             }
 
+            // ── Status pills ─────────────────────────────────────
+            if (entry.isSkipped()) {
+                // Show only the skipped pill
+                binding.pillLunch.setVisibility(View.GONE);
+                binding.pillDinner.setVisibility(View.GONE);
+                binding.pillSkipped.setVisibility(View.VISIBLE);
+
+                // Tint accent strip amber
+                binding.viewAccent.setBackgroundTintList(
+                        ColorStateList.valueOf(ContextCompat.getColor(
+                                itemView.getContext(), R.color.status_yellow)));
+            } else {
+                binding.pillSkipped.setVisibility(View.GONE);
+                binding.pillLunch.setVisibility(View.VISIBLE);
+                binding.pillDinner.setVisibility(View.VISIBLE);
+
+                // Lunch pill
+                setupMealPill(
+                        entry.isLunch(),
+                        binding.pillLunch,
+                        binding.tvLunchStatus,
+                        binding.ivLunchIcon,
+                        itemView.getContext().getString(R.string.label_lunch));
+
+                // Dinner pill
+                setupMealPill(
+                        entry.isDinner(),
+                        binding.pillDinner,
+                        binding.tvDinnerStatus,
+                        binding.ivDinnerIcon,
+                        itemView.getContext().getString(R.string.label_dinner));
+
+                // Accent strip: green if both taken, red if both missed, primary otherwise
+                int accentColor;
+                if (entry.isLunch() && entry.isDinner()) {
+                    accentColor = R.color.status_green;
+                } else if (!entry.isLunch() && !entry.isDinner()) {
+                    accentColor = R.color.status_red;
+                } else {
+                    accentColor = R.color.md_primary;
+                }
+                binding.viewAccent.setBackgroundTintList(
+                        ColorStateList.valueOf(ContextCompat.getColor(
+                                itemView.getContext(), accentColor)));
+            }
+
+            // ── Notes ────────────────────────────────────────────
             if (entry.getNotes() != null && !entry.getNotes().isEmpty()) {
-                binding.tvNotes.setVisibility(View.VISIBLE);
+                binding.layoutNotes.setVisibility(View.VISIBLE);
                 binding.tvNotes.setText(entry.getNotes());
             } else {
-                binding.tvNotes.setVisibility(View.GONE);
+                binding.layoutNotes.setVisibility(View.GONE);
             }
 
+            // ── Action buttons ───────────────────────────────────
             binding.btnEdit.setOnClickListener(v -> listener.onEditClick(entry));
             binding.btnDelete.setOnClickListener(v -> listener.onDeleteClick(entry));
+        }
+
+        private void setupMealPill(boolean isTaken,
+                                   View pillContainer,
+                                   android.widget.TextView statusText,
+                                   android.widget.ImageView icon,
+                                   String mealLabel) {
+            if (isTaken) {
+                pillContainer.setBackgroundResource(R.drawable.bg_pill_taken);
+                statusText.setText(mealLabel + " ✓");
+                int greenColor = ContextCompat.getColor(itemView.getContext(), R.color.status_green);
+                statusText.setTextColor(greenColor);
+                icon.setImageTintList(ColorStateList.valueOf(greenColor));
+            } else {
+                pillContainer.setBackgroundResource(R.drawable.bg_pill_missed);
+                statusText.setText(mealLabel + " ✗");
+                int redColor = ContextCompat.getColor(itemView.getContext(), R.color.status_red);
+                statusText.setTextColor(redColor);
+                icon.setImageTintList(ColorStateList.valueOf(redColor));
+            }
         }
     }
 }

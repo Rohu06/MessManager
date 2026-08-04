@@ -137,4 +137,13 @@
     <string name="subtitle_privacy">How your data is handled</string>
     <string name="action_today">Today</string>
     <string name="content_desc_back">Go back</string>
+    <string name="title_meal_history">Meal History</string>
+    <string name="subtitle_meal_history">Your complete meal record</string>
+    <string name="label_entries_count">%d entries</string>
+    <string name="label_one_entry">1 entry</string>
+    <string name="label_no_entries">No entries</string>
+    <string name="label_meal_taken">Taken</string>
+    <string name="label_meal_missed">Missed</string>
+    <string name="empty_history_title">No Meal Records Yet</string>
+    <string name="empty_history_subtitle">Your meal history will appear here once you start logging meals</string>
 </resources>

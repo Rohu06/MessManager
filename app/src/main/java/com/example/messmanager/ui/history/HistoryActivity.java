@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +33,7 @@ public class HistoryActivity extends AppCompatActivity {
     private ActivityHistoryBinding binding;
     private HistoryViewModel viewModel;
     private MealHistoryAdapter adapter;
+    private boolean isFirstLoad = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +43,16 @@ public class HistoryActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
 
+        setupBackButton();
         setupRecyclerView();
         setupSearch();
         setupFilterChips();
         setupSortButton();
         observeList();
+    }
+
+    private void setupBackButton() {
+        binding.btnBack.setOnClickListener(v -> finish());
     }
 
     private void setupRecyclerView() {
@@ -63,6 +71,11 @@ public class HistoryActivity extends AppCompatActivity {
         });
         binding.recyclerHistory.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerHistory.setAdapter(adapter);
+
+        // Set layout animation for staggered item entrance
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(
+                this, R.anim.layout_animation_slide_up);
+        binding.recyclerHistory.setLayoutAnimation(animation);
     }
 
     private void confirmDelete(MealEntry entry) {
@@ -157,5 +170,25 @@ public class HistoryActivity extends AppCompatActivity {
         boolean isEmpty = entries == null || entries.isEmpty();
         binding.recyclerHistory.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         binding.tvEmptyState.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+
+        // Update entry count badge in the header
+        updateEntryCount(entries);
+
+        // Play layout animation on first load
+        if (isFirstLoad && !isEmpty) {
+            binding.recyclerHistory.scheduleLayoutAnimation();
+            isFirstLoad = false;
+        }
+    }
+
+    private void updateEntryCount(List<MealEntry> entries) {
+        int count = (entries != null) ? entries.size() : 0;
+        if (count == 0) {
+            binding.tvEntryCount.setText(R.string.label_no_entries);
+        } else if (count == 1) {
+            binding.tvEntryCount.setText(R.string.label_one_entry);
+        } else {
+            binding.tvEntryCount.setText(getString(R.string.label_entries_count, count));
+        }
     }
 }
