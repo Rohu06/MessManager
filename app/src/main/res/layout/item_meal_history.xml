@@ -5,251 +5,295 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="6dp"
+    android:layout_marginVertical="5dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="0dp"
+    app:cardElevation="1dp"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:strokeWidth="0.5dp"
     app:cardBackgroundColor="?attr/colorSurface">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="16dp">
 
-        <!-- Left accent strip -->
+        <!-- ─── Left accent strip ─── -->
         <View
             android:id="@+id/viewAccent"
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_history_date_accent" />
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_history_date_accent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- Date section -->
+        <!-- ─── Date badge ─── -->
         <LinearLayout
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
+            android:id="@+id/dateBadge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:orientation="vertical"
             android:gravity="center"
             android:background="@drawable/bg_date_section"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="4dp">
+            android:layout_marginStart="14dp"
+            app:layout_constraintStart_toEndOf="@id/viewAccent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvDayNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
                 tools:text="22" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvMonthYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textColor="?attr/colorOnPrimaryContainer"
-                android:alpha="0.75"
+                android:alpha="0.8"
                 android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.04"
-                tools:text="JUL 2026" />
+                android:letterSpacing="0.06"
+                android:includeFontPadding="false"
+                tools:text="JUL" />
 
         </LinearLayout>
 
-        <!-- Content area -->
-        <LinearLayout
+        <!-- ─── Full date text ─── -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="14dp"
-            android:paddingEnd="8dp"
-            android:paddingVertical="12dp">
+            android:layout_marginStart="14dp"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/dateBadge"
+            app:layout_constraintEnd_toStartOf="@id/btnEdit"
+            app:layout_constraintTop_toTopOf="@id/dateBadge"
+            app:layout_constraintBottom_toTopOf="@id/layoutStatusPills"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Tuesday, 22 July 2026" />
 
-            <!-- Full date text -->
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceTitleSmall"
-                android:textColor="?attr/colorOnSurface"
-                android:fontFamily="sans-serif-medium"
-                tools:text="Tuesday, 22 July 2026" />
+        <!-- ─── Status pills row ─── -->
+        <LinearLayout
+            android:id="@+id/layoutStatusPills"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toEndOf="@id/dateBadge"
+            app:layout_constraintEnd_toStartOf="@id/btnEdit"
+            app:layout_constraintTop_toBottomOf="@id/tvDate">
 
-            <!-- Status pills row -->
+            <!-- Lunch pill -->
             <LinearLayout
-                android:id="@+id/layoutStatusPills"
+                android:id="@+id/pillLunch"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
-
-                <!-- Lunch pill -->
-                <LinearLayout
-                    android:id="@+id/pillLunch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bg_pill_taken"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp">
-
-                    <ImageView
-                        android:id="@+id/ivLunchIcon"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_lunch"
-                        android:contentDescription="@string/label_lunch"
-                        app:tint="@color/status_green" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvLunchStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:textSize="11sp"
-                        android:textColor="@color/status_green"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.02"
-                        tools:text="Lunch ✓" />
-
-                </LinearLayout>
-
-                <!-- Dinner pill -->
-                <LinearLayout
-                    android:id="@+id/pillDinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bg_pill_taken"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:layout_marginStart="8dp">
-
-                    <ImageView
-                        android:id="@+id/ivDinnerIcon"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_dinner"
-                        android:contentDescription="@string/label_dinner"
-                        app:tint="@color/status_green" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvDinnerStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:textSize="11sp"
-                        android:textColor="@color/status_green"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.02"
-                        tools:text="Dinner ✓" />
-
-                </LinearLayout>
-
-                <!-- Skipped pill (visible only when isSkipped) -->
-                <LinearLayout
-                    android:id="@+id/pillSkipped"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bg_pill_skipped"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvSkippedStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/status_skipped"
-                        android:textSize="11sp"
-                        android:textColor="@color/status_yellow"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.02" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Notes row -->
-            <LinearLayout
-                android:id="@+id/layoutNotes"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_pill_taken"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp">
+
+                <ImageView
+                    android:id="@+id/ivLunchIcon"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/ic_lunch"
+                    android:contentDescription="@string/label_lunch"
+                    app:tint="@color/status_green" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLunchStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textSize="11sp"
+                    android:textColor="@color/status_green"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02"
+                    tools:text="Lunch ✓" />
+
+            </LinearLayout>
+
+            <!-- Dinner pill -->
+            <LinearLayout
+                android:id="@+id/pillDinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_pill_taken"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:layout_marginStart="6dp">
+
+                <ImageView
+                    android:id="@+id/ivDinnerIcon"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/ic_dinner"
+                    android:contentDescription="@string/label_dinner"
+                    app:tint="@color/status_green" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDinnerStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textSize="11sp"
+                    android:textColor="@color/status_green"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02"
+                    tools:text="Dinner ✓" />
+
+            </LinearLayout>
+
+            <!-- Skipped pill -->
+            <LinearLayout
+                android:id="@+id/pillSkipped"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_pill_skipped"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_edit_note"
-                    android:contentDescription="@null"
-                    android:alpha="0.6"
-                    app:tint="?attr/colorOnSurfaceVariant" />
-
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvNotes"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvSkippedStatus"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    android:textAppearance="?attr/textAppearanceBodySmall"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textStyle="italic"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    tools:text="Skipped due to travel" />
+                    android:text="@string/status_skipped"
+                    android:textSize="11sp"
+                    android:textColor="@color/status_yellow"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Action buttons column -->
+        <!-- ─── Notes row ─── -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:id="@+id/layoutNotes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingEnd="8dp"
-            android:paddingVertical="8dp">
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/dateBadge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutStatusPills">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEdit"
-                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:contentDescription="@string/action_edit"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="@android:drawable/ic_menu_edit"
-                app:iconSize="18dp"
-                app:cornerRadius="10dp" />
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:src="@drawable/ic_edit_note"
+                android:contentDescription="@null"
+                android:alpha="0.5"
+                app:tint="?attr/colorOnSurfaceVariant" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnDelete"
-                style="@style/Widget.Material3.Button.IconButton.Outlined"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="4dp"
-                android:contentDescription="@string/action_delete"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="@android:drawable/ic_menu_delete"
-                app:iconSize="18dp"
-                app:iconTint="@color/status_red"
-                app:cornerRadius="10dp"
-                app:strokeColor="@color/status_red_container" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNotes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textStyle="italic"
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="Skipped due to travel" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <!-- ─── Divider before actions ─── -->
+        <View
+            android:id="@+id/dividerActions"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="14dp"
+            android:background="?attr/colorOutlineVariant"
+            android:alpha="0.5"
+            app:layout_constraintStart_toEndOf="@id/viewAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutNotes" />
+
+        <!-- ─── Action buttons row ─── -->
+        <LinearLayout
+            android:id="@+id/layoutActions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end|center_vertical"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toEndOf="@id/viewAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerActions">
+
+            <!-- Edit button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minWidth="0dp"
+                android:text="@string/action_edit"
+                android:textSize="12sp"
+                android:textColor="?attr/colorPrimary"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:icon="@drawable/ic_edit_note"
+                app:iconSize="16dp"
+                app:iconTint="?attr/colorPrimary"
+                app:iconPadding="4dp"
+                app:cornerRadius="8dp" />
+
+            <!-- Delete button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minWidth="0dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/action_delete"
+                android:textSize="12sp"
+                android:textColor="@color/status_red"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconSize="16dp"
+                app:iconTint="@color/status_red"
+                app:iconPadding="4dp"
+                app:cornerRadius="8dp"
+                app:rippleColor="@color/status_red_container" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

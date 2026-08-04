@@ -146,4 +146,8 @@
     <string name="label_meal_missed">Missed</string>
     <string name="empty_history_title">No Meal Records Yet</string>
     <string name="empty_history_subtitle">Your meal history will appear here once you start logging meals</string>
+    <string name="title_statistics_header">Statistics &amp; Insights</string>
+    <string name="subtitle_statistics_header">Track your meal usage &amp; monthly trends</string>
+    <string name="label_coupons_cap_badge">%d Coupons Limit</string>
+    <string name="label_coupons_usage_format">%1$d of %2$d used</string>
 </resources>
