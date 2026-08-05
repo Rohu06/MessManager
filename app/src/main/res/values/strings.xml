@@ -150,4 +150,8 @@
     <string name="subtitle_statistics_header">Track your meal usage &amp; monthly trends</string>
     <string name="label_coupons_cap_badge">%d Coupons Limit</string>
     <string name="label_coupons_usage_format">%1$d of %2$d used</string>
+    <string name="label_coupons_remaining_subtitle">out of %d coupons</string>
+    <string name="label_pie_chart_subtitle">Lunch vs Dinner vs Skipped breakdown</string>
+    <string name="label_bar_chart_subtitle">How your coupon usage varies by week</string>
+    <string name="label_remaining_coupons_brief">%d remaining</string>
 </resources>
