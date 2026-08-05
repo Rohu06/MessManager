@@ -473,53 +473,72 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="22dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp"
                     app:rippleColor="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:padding="16dp"
-                        android:minHeight="110dp">
+                        android:minHeight="120dp">
 
                         <FrameLayout
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:background="@drawable/bg_icon_chip">
+                            android:id="@+id/iconHistory"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_stat_icon_container"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@android:drawable/ic_menu_recent_history"
-                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:src="@drawable/ic_history_nav"
+                                app:tint="?attr/colorPrimary"
                                 android:contentDescription="@string/nav_history" />
                         </FrameLayout>
 
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/arrow_forward"
+                            app:tint="?attr/colorOnSurfaceVariant"
+                            app:layout_constraintTop_toTopOf="@id/iconHistory"
+                            app:layout_constraintBottom_toBottomOf="@id/iconHistory"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
                         <TextView
+                            android:id="@+id/titleHistory"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="16dp"
                             android:text="@string/nav_history"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
-                            android:textSize="14sp" />
+                            android:textSize="15sp"
+                            app:layout_constraintTop_toBottomOf="@id/iconHistory"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="@string/desc_nav_history"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             android:fontFamily="sans-serif"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                            android:textSize="12sp"
+                            android:maxLines="2"
+                            app:layout_constraintTop_toBottomOf="@id/titleHistory"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- Calendar tile -->
@@ -529,53 +548,72 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="22dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp"
                     app:rippleColor="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:padding="16dp"
-                        android:minHeight="110dp">
+                        android:minHeight="120dp">
 
                         <FrameLayout
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:background="@drawable/bg_icon_chip">
+                            android:id="@+id/iconCalendar"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_stat_icon_container"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@android:drawable/ic_menu_my_calendar"
-                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:src="@drawable/ic_calendar_month"
+                                app:tint="?attr/colorPrimary"
                                 android:contentDescription="@string/nav_calendar" />
                         </FrameLayout>
 
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/arrow_forward"
+                            app:tint="?attr/colorOnSurfaceVariant"
+                            app:layout_constraintTop_toTopOf="@id/iconCalendar"
+                            app:layout_constraintBottom_toBottomOf="@id/iconCalendar"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
                         <TextView
+                            android:id="@+id/titleCalendar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="16dp"
                             android:text="@string/nav_calendar"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
-                            android:textSize="14sp" />
+                            android:textSize="15sp"
+                            app:layout_constraintTop_toBottomOf="@id/iconCalendar"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="@string/desc_nav_calendar"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             android:fontFamily="sans-serif"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                            android:textSize="12sp"
+                            android:maxLines="2"
+                            app:layout_constraintTop_toBottomOf="@id/titleCalendar"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
@@ -595,53 +633,72 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="22dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp"
                     app:rippleColor="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:padding="16dp"
-                        android:minHeight="110dp">
+                        android:minHeight="120dp">
 
                         <FrameLayout
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:background="@drawable/bg_icon_chip">
+                            android:id="@+id/iconStats"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_stat_icon_container"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@android:drawable/ic_menu_sort_by_size"
-                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:src="@drawable/ic_pie_chart"
+                                app:tint="?attr/colorPrimary"
                                 android:contentDescription="@string/nav_statistics" />
                         </FrameLayout>
 
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/arrow_forward"
+                            app:tint="?attr/colorOnSurfaceVariant"
+                            app:layout_constraintTop_toTopOf="@id/iconStats"
+                            app:layout_constraintBottom_toBottomOf="@id/iconStats"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
                         <TextView
+                            android:id="@+id/titleStats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="16dp"
                             android:text="@string/nav_statistics"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
-                            android:textSize="14sp" />
+                            android:textSize="15sp"
+                            app:layout_constraintTop_toBottomOf="@id/iconStats"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="@string/desc_nav_statistics"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             android:fontFamily="sans-serif"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                            android:textSize="12sp"
+                            android:maxLines="2"
+                            app:layout_constraintTop_toBottomOf="@id/titleStats"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- Settings tile -->
@@ -651,53 +708,72 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
-                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                    app:cardCornerRadius="22dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="0dp"
-                    app:strokeWidth="0dp"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp"
                     app:rippleColor="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:padding="16dp"
-                        android:minHeight="110dp">
+                        android:minHeight="120dp">
 
                         <FrameLayout
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:background="@drawable/bg_icon_chip">
+                            android:id="@+id/iconSettings"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_stat_icon_container"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@android:drawable/ic_menu_preferences"
-                                app:tint="?attr/colorOnPrimaryContainer"
+                                android:src="@drawable/ic_settings_gear"
+                                app:tint="?attr/colorPrimary"
                                 android:contentDescription="@string/nav_settings" />
                         </FrameLayout>
 
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/arrow_forward"
+                            app:tint="?attr/colorOnSurfaceVariant"
+                            app:layout_constraintTop_toTopOf="@id/iconSettings"
+                            app:layout_constraintBottom_toBottomOf="@id/iconSettings"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
                         <TextView
+                            android:id="@+id/titleSettings"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="16dp"
                             android:text="@string/nav_settings"
                             android:textColor="?attr/colorOnSurface"
                             android:fontFamily="sans-serif-medium"
-                            android:textSize="14sp" />
+                            android:textSize="15sp"
+                            app:layout_constraintTop_toBottomOf="@id/iconSettings"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="@string/desc_nav_settings"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             android:fontFamily="sans-serif"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                            android:textSize="12sp"
+                            android:maxLines="2"
+                            app:layout_constraintTop_toBottomOf="@id/titleSettings"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
