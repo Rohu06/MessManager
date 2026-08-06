@@ -45,16 +45,18 @@ public class NotificationHelper {
     public static void showLunchReminder(Context context) {
         show(context, NOTIFICATION_ID_LUNCH,
                 context.getString(R.string.notif_title_lunch),
-                context.getString(R.string.notif_body_lunch));
+                context.getString(R.string.notif_body_lunch),
+                NotificationActionReceiver.ACTION_MARK_LUNCH_EATEN);
     }
 
     public static void showDinnerReminder(Context context) {
         show(context, NOTIFICATION_ID_DINNER,
                 context.getString(R.string.notif_title_dinner),
-                context.getString(R.string.notif_body_dinner));
+                context.getString(R.string.notif_body_dinner),
+                NotificationActionReceiver.ACTION_MARK_DINNER_EATEN);
     }
 
-    private static void show(Context context, int notificationId, String title, String body) {
+    private static void show(Context context, int notificationId, String title, String body, String markAction) {
         Intent intent = new Intent(context, DashboardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
@@ -64,13 +66,25 @@ public class NotificationHelper {
         }
         PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationId, intent, flags);
 
+        Intent markIntent = new Intent(context, NotificationActionReceiver.class);
+        markIntent.setAction(markAction);
+        markIntent.putExtra(NotificationActionReceiver.EXTRA_NOTIFICATION_ID, notificationId);
+        PendingIntent markPendingIntent = PendingIntent.getBroadcast(context, notificationId, markIntent, flags);
+
+        Intent skipIntent = new Intent(context, NotificationActionReceiver.class);
+        skipIntent.setAction(NotificationActionReceiver.ACTION_SKIP);
+        skipIntent.putExtra(NotificationActionReceiver.EXTRA_NOTIFICATION_ID, notificationId);
+        PendingIntent skipPendingIntent = PendingIntent.getBroadcast(context, notificationId + 100, skipIntent, flags);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .addAction(0, context.getString(R.string.action_mark_eaten), markPendingIntent)
+                .addAction(0, context.getString(R.string.action_skip), skipPendingIntent);
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(context);
         // Caller (ReminderReceiver) has already checked POST_NOTIFICATIONS is granted

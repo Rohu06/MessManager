@@ -154,4 +154,8 @@
     <string name="label_pie_chart_subtitle">Lunch vs Dinner vs Skipped breakdown</string>
     <string name="label_bar_chart_subtitle">How your coupon usage varies by week</string>
     <string name="label_remaining_coupons_brief">%d remaining</string>
+    <string name="msg_lunch_already_marked">Lunch is already marked for today</string>
+    <string name="msg_dinner_already_marked">Dinner is already marked for today</string>
+    <string name="action_mark_eaten">✅ Mark Eaten</string>
+    <string name="action_skip">⏭️ Skip</string>
 </resources>

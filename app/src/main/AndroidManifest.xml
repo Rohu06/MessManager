@@ -32,6 +32,9 @@
             android:name=".notification.ReminderReceiver"
             android:exported="false" />
         <receiver
+            android:name=".notification.NotificationActionReceiver"
+            android:exported="false" />
+        <receiver
             android:name=".notification.BootReceiver"
             android:exported="true">
             <intent-filter>
