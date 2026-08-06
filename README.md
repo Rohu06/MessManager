@@ -53,7 +53,7 @@
 ### ⚙️ Customizable Settings
 - **Custom Billing Cycle**: Set any cycle start date (e.g., 21st to 20th of next month).
 - **Coupon Manager**: Adjust your monthly coupon quota anytime.
-- **Meal Reminders**: Scheduled local notifications for Lunch and Dinner times.
+- **Meal Reminders with Quick Actions**: Scheduled local notifications for Lunch and Dinner times. Mark meals as eaten or skipped directly from your notification shade without opening the app.
 - **Backup & Restore**: Export complete SQLite database backups or import previous backups.
 - **Dark Mode**: Native Android Dark Mode support with smooth theme switching.
 
