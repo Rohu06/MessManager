@@ -43,6 +43,9 @@ public interface MealDao {
     @Query("SELECT * FROM meal_entries ORDER BY date DESC")
     LiveData<List<MealEntry>> getAllEntries();
 
+    @Query("SELECT * FROM meal_entries ORDER BY date ASC")
+    List<MealEntry> getAllEntriesSync();
+
     // Add to the existing MealDao interface:
 
     @Query("DELETE FROM meal_entries WHERE month = :month AND year = :year")

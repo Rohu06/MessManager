@@ -36,9 +36,11 @@ public class BackupRestoreActivity extends AppCompatActivity {
     private BackupRestoreViewModel viewModel;
 
     private ActivityResultLauncher<String> createDocumentLauncher;
+    private ActivityResultLauncher<String> createCsvDocumentLauncher;
     private ActivityResultLauncher<String[]> openDocumentLauncher;
 
     private Uri lastExportedUri; // kept so "Share" can act on the file just created
+    private Uri lastCsvExportedUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,10 @@ public class BackupRestoreActivity extends AppCompatActivity {
         createDocumentLauncher = registerForActivityResult(
                 new ActivityResultContracts.CreateDocument("application/octet-stream"),
                 uri -> { if (uri != null) performExport(uri); });
+                
+        createCsvDocumentLauncher = registerForActivityResult(
+                new ActivityResultContracts.CreateDocument("text/csv"),
+                uri -> { if (uri != null) performCsvExport(uri); });
 
         openDocumentLauncher = registerForActivityResult(
                 new ActivityResultContracts.OpenDocument(),
@@ -62,9 +68,18 @@ public class BackupRestoreActivity extends AppCompatActivity {
         });
 
         binding.btnShareLastExport.setOnClickListener(v -> shareLastExport());
+        
+        binding.btnExportCsv.setOnClickListener(v -> {
+            String suggestedName = "mess_manager_export_" + DateUtils.getTodayDateString() + ".csv";
+            createCsvDocumentLauncher.launch(suggestedName);
+        });
+        
+        binding.btnShareLastCsv.setOnClickListener(v -> shareLastCsvExport());
+
         binding.btnImport.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"*/*"}));
 
         binding.btnShareLastExport.setEnabled(false);
+        binding.btnShareLastCsv.setEnabled(false);
     }
 
     private void performExport(Uri destination) {
@@ -90,6 +105,31 @@ public class BackupRestoreActivity extends AppCompatActivity {
         shareIntent.putExtra(Intent.EXTRA_STREAM, lastExportedUri);
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(shareIntent, getString(R.string.title_share_backup)));
+    }
+
+    private void performCsvExport(Uri destination) {
+        viewModel.exportCsvTo(destination, new BackupManager.BackupCallback() {
+            @Override
+            public void onSuccess() {
+                lastCsvExportedUri = destination;
+                binding.btnShareLastCsv.setEnabled(true);
+                Toast.makeText(BackupRestoreActivity.this, R.string.msg_csv_export_success, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(BackupRestoreActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void shareLastCsvExport() {
+        if (lastCsvExportedUri == null) return;
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/csv");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, lastCsvExportedUri);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.title_share_csv)));
     }
 
     private void confirmImport(Uri source) {

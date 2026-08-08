@@ -31,4 +31,27 @@ public class BackupRestoreViewModel extends AndroidViewModel {
     public void importFrom(Uri source, BackupManager.BackupCallback callback) {
         backupManager.importFrom(source, callback);
     }
+
+    public void exportCsvTo(Uri destination, BackupManager.BackupCallback callback) {
+        com.example.messmanager.util.AppExecutors.getInstance().diskIO().execute(() -> {
+            try {
+                java.util.List<com.example.messmanager.data.local.entity.MealEntry> entries = 
+                        com.example.messmanager.data.local.AppDatabase.getInstance(getApplication())
+                        .mealDao().getAllEntriesSync();
+                        
+                if (entries == null || entries.isEmpty()) {
+                    com.example.messmanager.util.AppExecutors.getInstance().mainThread().post(() -> 
+                        callback.onError("No data to export."));
+                    return;
+                }
+                
+                com.example.messmanager.util.CsvExporter.exportToCsv(getApplication(), destination, entries);
+                
+                com.example.messmanager.util.AppExecutors.getInstance().mainThread().post(callback::onSuccess);
+            } catch (Exception e) {
+                com.example.messmanager.util.AppExecutors.getInstance().mainThread().post(() -> 
+                    callback.onError("CSV Export failed: " + e.getMessage()));
+            }
+        });
+    }
 }

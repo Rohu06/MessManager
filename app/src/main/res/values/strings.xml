@@ -107,6 +107,12 @@
     <string name="msg_backup_success">Backup saved successfully</string>
     <string name="msg_restore_success">Backup restored. Restarting app…</string>
     <string name="msg_confirm_restore">This will replace all current meal data with the selected backup file. This cannot be undone. Continue?</string>
+    <string name="title_export_csv">Export to CSV</string>
+    <string name="desc_export_csv">Save your meal history as a human-readable CSV file that can be opened in Excel or Google Sheets.</string>
+    <string name="action_export_csv">Export CSV</string>
+    <string name="action_share_csv">Share Last CSV</string>
+    <string name="msg_csv_export_success">CSV exported successfully</string>
+    <string name="title_share_csv">Share CSV File</string>
     <string name="label_explore">Explore</string>
     <string name="label_greeting">Good %s 👋</string>
     <string name="label_today_meals">Today\'s Meals</string>
