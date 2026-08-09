@@ -27,7 +27,7 @@ import java.util.List;
 public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.ViewHolder> {
 
     public interface Listener {
-        void onDayClick(CalendarDay day);
+        void onDayClick(CalendarDay day, View sharedElement);
     }
 
     private final Listener listener;
@@ -72,12 +72,16 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
                 binding.tvDayNumber.setText("");
                 binding.viewStatusCircle.setVisibility(View.INVISIBLE);
                 binding.viewTodayRing.setVisibility(View.INVISIBLE);
+                binding.viewStatusCircle.setTransitionName(null);
                 itemView.setClickable(false);
                 itemView.setOnClickListener(null);
                 return;
             }
 
             binding.tvDayNumber.setText(String.valueOf(day.getDayOfMonth()));
+
+            // Set a unique transition name per day for shared element transitions
+            binding.viewStatusCircle.setTransitionName("transition_day_" + day.getDate());
 
             // Determine status color and apply tinted circular background
             int colorRes;
@@ -122,7 +126,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
             }
 
             itemView.setClickable(true);
-            itemView.setOnClickListener(v -> listener.onDayClick(day));
+            itemView.setOnClickListener(v -> listener.onDayClick(day, binding.viewStatusCircle));
         }
     }
 }

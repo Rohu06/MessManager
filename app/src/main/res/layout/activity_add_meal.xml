@@ -22,7 +22,8 @@
             android:paddingHorizontal="20dp"
             android:paddingTop="16dp"
             android:paddingBottom="24dp"
-            android:elevation="4dp">
+            android:elevation="4dp"
+            android:transitionName="transition_calendar_day">
 
             <ImageButton
                 android:id="@+id/btnBack"

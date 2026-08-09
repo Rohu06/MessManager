@@ -2,6 +2,10 @@ package com.example.messmanager.ui.addmeal;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.transition.ChangeBounds;
+import android.transition.ChangeTransform;
+import android.transition.TransitionSet;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -33,7 +37,20 @@ public class AddMealActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Enable shared element transition (for Calendar → AddMeal)
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
         super.onCreate(savedInstanceState);
+
+        // Configure shared element enter/return transitions
+        TransitionSet sharedElementTransition = new TransitionSet();
+        sharedElementTransition.addTransition(new ChangeBounds());
+        sharedElementTransition.addTransition(new ChangeTransform());
+        sharedElementTransition.setDuration(350);
+        getWindow().setSharedElementEnterTransition(sharedElementTransition);
+        getWindow().setSharedElementReturnTransition(sharedElementTransition);
+
         binding = ActivityAddMealBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

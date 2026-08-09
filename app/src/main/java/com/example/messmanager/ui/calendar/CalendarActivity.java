@@ -1,6 +1,9 @@
 package com.example.messmanager.ui.calendar;
 
+import android.app.ActivityOptions;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,16 +31,24 @@ public class CalendarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Enable shared element transitions before setting content view
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
         super.onCreate(savedInstanceState);
         binding = ActivityCalendarBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(CalendarViewModel.class);
 
-        adapter = new CalendarDayAdapter(day -> {
+        adapter = new CalendarDayAdapter((day, sharedElement) -> {
             android.content.Intent intent = new android.content.Intent(this, AddMealActivity.class);
             intent.putExtra(AddMealActivity.EXTRA_DATE, day.getDate());
-            startActivity(intent);
+
+            // Shared element transition from day circle → AddMeal hero header
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    this, sharedElement, "transition_calendar_day");
+            startActivity(intent, options.toBundle());
         });
 
         binding.recyclerCalendar.setLayoutManager(new GridLayoutManager(this, 7));
