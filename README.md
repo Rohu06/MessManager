@@ -37,13 +37,14 @@
 - **At-a-Glance Stat Chips**: Total Meals Used, Lunch Count, and Dinner Count summary boxes.
 - **Today's Status Pills**: Instant visual status (Pending / Done) for Lunch & Dinner.
 - **One-Tap Quick Mark**: Convenient quick-action buttons to log meals in seconds.
+- **Fluid Micro-Animations**: Satisfying count-up animations for statistics and press-scale tactile feedback on buttons.
 
 ### 📅 Interactive Monthly Calendar
 - Color-coded daily indicators:
   - 🟢 **Both Meals**: Logged both Lunch and Dinner.
   - 🟡 **One Meal**: Logged either Lunch or Dinner.
   - 🔴 **Skipped**: No meals taken on that date.
-- Tap any date to view or modify logged entries.
+- Tap any date to view or modify logged entries with a seamless shared element transition.
 
 ### 📈 Analytics & Insights
 - **Meal Distribution Chart**: Half-donut chart illustrating Lunch vs. Dinner vs. Skipped proportion.
@@ -54,7 +55,7 @@
 - **Custom Billing Cycle**: Set any cycle start date (e.g., 21st to 20th of next month).
 - **Coupon Manager**: Adjust your monthly coupon quota anytime.
 - **Meal Reminders with Quick Actions**: Scheduled local notifications for Lunch and Dinner times. Mark meals as eaten or skipped directly from your notification shade without opening the app.
-- **Backup & Restore**: Export complete SQLite database backups or import previous backups.
+- **Backup & Export**: Export complete SQLite database backups, import previous backups, and export history to CSV.
 - **Dark Mode**: Native Android Dark Mode support with smooth theme switching.
 
 ---
