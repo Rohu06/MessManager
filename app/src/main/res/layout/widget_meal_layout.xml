@@ -5,7 +5,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_widget"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <!-- ═══════════ TOP SECTION: Coupon Summary ═══════════ -->
     <LinearLayout
@@ -36,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:text="@string/widget_date_default"
-                android:textColor="#B0BBFFFF"
+                android:textColor="#B0C8CBFF"
                 android:textSize="11sp"
                 android:fontFamily="sans-serif" />
         </LinearLayout>
@@ -48,8 +51,10 @@
             android:background="@drawable/bg_widget_remaining_pill"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="6dp">
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
 
             <TextView
                 android:id="@+id/widget_remaining_count"
@@ -105,7 +110,8 @@
             android:layout_marginEnd="5dp"
             android:background="@drawable/bg_widget_meal_card"
             android:orientation="vertical"
-            android:paddingHorizontal="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:paddingTop="10dp"
             android:paddingBottom="8dp">
 
@@ -157,7 +163,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_widget_btn"
                 android:gravity="center"
-                android:paddingVertical="7dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
                 android:text="@string/widget_mark_lunch_short"
                 android:textColor="#FFFFFFFF"
                 android:textSize="11sp"
@@ -173,7 +180,8 @@
             android:layout_marginStart="5dp"
             android:background="@drawable/bg_widget_meal_card"
             android:orientation="vertical"
-            android:paddingHorizontal="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:paddingTop="10dp"
             android:paddingBottom="8dp">
 
@@ -225,7 +233,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_widget_btn"
                 android:gravity="center"
-                android:paddingVertical="7dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
                 android:text="@string/widget_mark_dinner_short"
                 android:textColor="#FFFFFFFF"
                 android:textSize="11sp"

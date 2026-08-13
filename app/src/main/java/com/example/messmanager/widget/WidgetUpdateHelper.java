@@ -51,83 +51,84 @@ public class WidgetUpdateHelper {
      * database reads.
      */
     public static void updateWidget(Context context, AppWidgetManager manager, int appWidgetId) {
-        // ── Fetch data ──────────────────────────────────────────────
-        AppPreferences prefs = AppPreferences.getInstance(context);
-        int totalCoupons = prefs.getTotalCoupons();
-        String cycleStartDate = prefs.getCycleStartDate();
-        String today = DateUtils.getTodayDateString();
-
-        MealDao dao = AppDatabase.getInstance(context).mealDao();
-        MealEntry todayEntry = dao.getEntryForDateSync(today);
-
-        // Count meals used in this cycle (synchronous full-table scan, but
-        // the dataset is tiny — at most ~60 rows per cycle).
-        java.util.List<MealEntry> entries = dao.getAllEntriesSync();
-        int mealsUsed = 0;
-        if (entries != null) {
-            for (MealEntry e : entries) {
-                if (e.getDate().compareTo(cycleStartDate) >= 0) {
-                    if (e.isLunch()) mealsUsed++;
-                    if (e.isDinner()) mealsUsed++;
-                }
-            }
-        }
-
-        int remaining = Math.max(0, totalCoupons - mealsUsed);
-        boolean lunchDone = todayEntry != null && todayEntry.isLunch();
-        boolean dinnerDone = todayEntry != null && todayEntry.isDinner();
-
-        // ── Build RemoteViews ───────────────────────────────────────
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_meal_layout);
 
-        // ── Header: Date ────────────────────────────────────────────
-        String displayDate = DateUtils.getDisplayDate();
-        views.setTextViewText(R.id.widget_date_text, displayDate);
+        try {
+            // ── Fetch data ──────────────────────────────────────────
+            AppPreferences prefs = AppPreferences.getInstance(context);
+            int totalCoupons = prefs.getTotalCoupons();
+            String cycleStartDate = prefs.getCycleStartDate();
+            String today = DateUtils.getTodayDateString();
 
-        // ── Remaining coupon count (large number) ───────────────────
-        views.setTextViewText(R.id.widget_remaining_count,
-                context.getString(R.string.widget_remaining_count_format, remaining));
+            MealDao dao = AppDatabase.getInstance(context).mealDao();
+            MealEntry todayEntry = dao.getEntryForDateSync(today);
 
-        // ── Used / total label ──────────────────────────────────────
-        views.setTextViewText(R.id.widget_coupon_text,
-                context.getString(R.string.widget_coupons_format, mealsUsed, totalCoupons));
+            // Count meals used in this cycle
+            java.util.List<MealEntry> entries = dao.getAllEntriesSync();
+            int mealsUsed = 0;
+            if (entries != null) {
+                for (MealEntry e : entries) {
+                    if (e.getDate().compareTo(cycleStartDate) >= 0) {
+                        if (e.isLunch()) mealsUsed++;
+                        if (e.isDinner()) mealsUsed++;
+                    }
+                }
+            }
 
-        // ── Lunch status ────────────────────────────────────────────
-        if (lunchDone) {
-            views.setTextViewText(R.id.widget_lunch_status,
-                    context.getString(R.string.widget_status_done));
-            views.setTextColor(R.id.widget_lunch_status, 0xCC66BB6A);  // green tint
-            views.setInt(R.id.widget_lunch_dot, "setBackgroundResource",
-                    R.drawable.bg_widget_dot_done);
-            // Hide the button since already marked
-            views.setViewVisibility(R.id.widget_btn_mark_lunch, View.GONE);
-        } else {
-            views.setTextViewText(R.id.widget_lunch_status,
-                    context.getString(R.string.widget_status_pending));
-            views.setTextColor(R.id.widget_lunch_status, 0xB0FFFFFF);
-            views.setInt(R.id.widget_lunch_dot, "setBackgroundResource",
-                    R.drawable.bg_widget_dot_pending);
-            views.setViewVisibility(R.id.widget_btn_mark_lunch, View.VISIBLE);
+            int remaining = Math.max(0, totalCoupons - mealsUsed);
+            boolean lunchDone = todayEntry != null && todayEntry.isLunch();
+            boolean dinnerDone = todayEntry != null && todayEntry.isDinner();
+
+            // ── Header: Date ────────────────────────────────────────
+            String displayDate = DateUtils.getDisplayDate();
+            views.setTextViewText(R.id.widget_date_text, displayDate);
+
+            // ── Remaining coupon count (large number) ───────────────
+            views.setTextViewText(R.id.widget_remaining_count, String.valueOf(remaining));
+
+            // ── Used / total label ──────────────────────────────────
+            views.setTextViewText(R.id.widget_coupon_text,
+                    context.getString(R.string.widget_coupons_format, mealsUsed, totalCoupons));
+
+            // ── Lunch status ────────────────────────────────────────
+            if (lunchDone) {
+                views.setTextViewText(R.id.widget_lunch_status,
+                        context.getString(R.string.widget_status_done));
+                views.setTextColor(R.id.widget_lunch_status, 0xCC66BB6A);
+                views.setInt(R.id.widget_lunch_dot, "setBackgroundResource",
+                        R.drawable.bg_widget_dot_done);
+                views.setViewVisibility(R.id.widget_btn_mark_lunch, View.GONE);
+            } else {
+                views.setTextViewText(R.id.widget_lunch_status,
+                        context.getString(R.string.widget_status_pending));
+                views.setTextColor(R.id.widget_lunch_status, 0xB0FFFFFF);
+                views.setInt(R.id.widget_lunch_dot, "setBackgroundResource",
+                        R.drawable.bg_widget_dot_pending);
+                views.setViewVisibility(R.id.widget_btn_mark_lunch, View.VISIBLE);
+            }
+
+            // ── Dinner status ───────────────────────────────────────
+            if (dinnerDone) {
+                views.setTextViewText(R.id.widget_dinner_status,
+                        context.getString(R.string.widget_status_done));
+                views.setTextColor(R.id.widget_dinner_status, 0xCC66BB6A);
+                views.setInt(R.id.widget_dinner_dot, "setBackgroundResource",
+                        R.drawable.bg_widget_dot_done);
+                views.setViewVisibility(R.id.widget_btn_mark_dinner, View.GONE);
+            } else {
+                views.setTextViewText(R.id.widget_dinner_status,
+                        context.getString(R.string.widget_status_pending));
+                views.setTextColor(R.id.widget_dinner_status, 0xB0FFFFFF);
+                views.setInt(R.id.widget_dinner_dot, "setBackgroundResource",
+                        R.drawable.bg_widget_dot_pending);
+                views.setViewVisibility(R.id.widget_btn_mark_dinner, View.VISIBLE);
+            }
+        } catch (Exception e) {
+            // If anything goes wrong, at least show the default layout
+            android.util.Log.e("WidgetUpdateHelper", "Error updating widget", e);
         }
 
-        // ── Dinner status ───────────────────────────────────────────
-        if (dinnerDone) {
-            views.setTextViewText(R.id.widget_dinner_status,
-                    context.getString(R.string.widget_status_done));
-            views.setTextColor(R.id.widget_dinner_status, 0xCC66BB6A);
-            views.setInt(R.id.widget_dinner_dot, "setBackgroundResource",
-                    R.drawable.bg_widget_dot_done);
-            views.setViewVisibility(R.id.widget_btn_mark_dinner, View.GONE);
-        } else {
-            views.setTextViewText(R.id.widget_dinner_status,
-                    context.getString(R.string.widget_status_pending));
-            views.setTextColor(R.id.widget_dinner_status, 0xB0FFFFFF);
-            views.setInt(R.id.widget_dinner_dot, "setBackgroundResource",
-                    R.drawable.bg_widget_dot_pending);
-            views.setViewVisibility(R.id.widget_btn_mark_dinner, View.VISIBLE);
-        }
-
-        // ── Click intents ───────────────────────────────────────────
+        // ── Click intents (always set, even on error) ───────────
         MealWidgetProvider.setClickIntents(context, views, appWidgetId);
 
         // Push update
