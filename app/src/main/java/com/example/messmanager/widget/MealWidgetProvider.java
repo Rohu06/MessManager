@@ -24,10 +24,19 @@ public class MealWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // Runs on a background thread for widget providers, safe to do sync DB reads.
-        for (int appWidgetId : appWidgetIds) {
-            WidgetUpdateHelper.updateWidget(context, appWidgetManager, appWidgetId);
-        }
+        // onUpdate() runs on the MAIN thread, so we must move synchronous
+        // Room queries to a background thread. goAsync() keeps the broadcast
+        // alive until we call pendingResult.finish().
+        final PendingResult pendingResult = goAsync();
+        new Thread(() -> {
+            try {
+                for (int appWidgetId : appWidgetIds) {
+                    WidgetUpdateHelper.updateWidget(context, appWidgetManager, appWidgetId);
+                }
+            } finally {
+                pendingResult.finish();
+            }
+        }).start();
     }
 
     @Override

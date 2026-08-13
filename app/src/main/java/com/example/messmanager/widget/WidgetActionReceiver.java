@@ -31,6 +31,9 @@ public class WidgetActionReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action == null) return;
 
+        // goAsync() keeps the receiver alive while we do async DB work.
+        final BroadcastReceiver.PendingResult pendingResult = goAsync();
+
         Context appContext = context.getApplicationContext();
         MealRepository repository = new MealRepository(appContext);
         Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -44,6 +47,7 @@ public class WidgetActionReceiver extends BroadcastReceiver {
                                 Toast.makeText(appContext,
                                         R.string.widget_already_marked_toast,
                                         Toast.LENGTH_SHORT).show());
+                        pendingResult.finish();
                     }
 
                     @Override
@@ -53,6 +57,7 @@ public class WidgetActionReceiver extends BroadcastReceiver {
                                         R.string.widget_lunch_marked_toast,
                                         Toast.LENGTH_SHORT).show());
                         WidgetUpdateHelper.requestUpdate(appContext);
+                        pendingResult.finish();
                     }
                 });
                 break;
@@ -65,6 +70,7 @@ public class WidgetActionReceiver extends BroadcastReceiver {
                                 Toast.makeText(appContext,
                                         R.string.widget_already_marked_toast,
                                         Toast.LENGTH_SHORT).show());
+                        pendingResult.finish();
                     }
 
                     @Override
@@ -74,8 +80,13 @@ public class WidgetActionReceiver extends BroadcastReceiver {
                                         R.string.widget_dinner_marked_toast,
                                         Toast.LENGTH_SHORT).show());
                         WidgetUpdateHelper.requestUpdate(appContext);
+                        pendingResult.finish();
                     }
                 });
+                break;
+
+            default:
+                pendingResult.finish();
                 break;
         }
     }
