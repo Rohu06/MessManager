@@ -5,75 +5,91 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_widget"
     android:orientation="vertical"
-    android:padding="14dp">
+    android:padding="16dp">
 
-    <!-- ═══════════ HEADER ROW ═══════════ -->
+    <!-- ═══════════ TOP SECTION: Coupon Summary ═══════════ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- App title -->
-        <TextView
+        <!-- Left: App branding + date -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/widget_title"
-            android:textColor="#FFFFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium" />
+            android:orientation="vertical">
 
-        <!-- Remaining coupons badge -->
-        <TextView
-            android:id="@+id/widget_remaining_badge"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_title"
+                android:textColor="#FFFFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:id="@+id/widget_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/widget_date_default"
+                android:textColor="#B0BBFFFF"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif" />
+        </LinearLayout>
+
+        <!-- Right: Big remaining number + label -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_widget_remaining_badge"
-            android:text="@string/widget_remaining_default"
-            android:textColor="#FFFFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium" />
+            android:background="@drawable/bg_widget_remaining_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp">
+
+            <TextView
+                android:id="@+id/widget_remaining_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_remaining_count_default"
+                android:textColor="#FFFFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/widget_remaining_label_line1"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:id="@+id/widget_coupon_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/widget_coupons_default"
+                    android:textColor="#99FFFFFF"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- ═══════════ PROGRESS BAR ROW ═══════════ -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <!-- Progress bar wrapper (we simulate a progress bar since RemoteViews doesn't support
-             ClipDrawable on all API levels reliably. We use two FrameLayouts.) -->
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_widget_progress_track">
-
-            <FrameLayout
-                android:id="@+id/widget_progress_fill"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_widget_progress_fill" />
-        </FrameLayout>
-
-        <!-- Coupon count label -->
-        <TextView
-            android:id="@+id/widget_coupon_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/widget_coupons_default"
-            android:textColor="#CCFFFFFF"
-            android:textSize="11sp"
-            android:fontFamily="sans-serif" />
-    </LinearLayout>
-
-    <!-- ═══════════ MEAL CARDS ROW ═══════════ -->
+    <!-- ═══════════ BOTTOM SECTION: Meal Cards ═══════════ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -88,45 +104,61 @@
             android:layout_weight="1"
             android:layout_marginEnd="5dp"
             android:background="@drawable/bg_widget_meal_card"
-            android:gravity="center"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:paddingHorizontal="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp">
 
-            <!-- Lunch emoji + label -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Status dot + Meal name row -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/widget_lunch_label"
-                android:textColor="#FFFFFFFF"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <!-- Status pill -->
+                <FrameLayout
+                    android:id="@+id/widget_lunch_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/bg_widget_dot_pending" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/widget_lunch_label"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <!-- Status text -->
             <TextView
                 android:id="@+id/widget_lunch_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_widget_status_pending"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="2dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/widget_status_pending"
-                android:textColor="#FFFFFFFF"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:textColor="#B0FFFFFF"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif" />
+
+            <!-- Spacer -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <!-- Mark Lunch Button -->
             <TextView
                 android:id="@+id/widget_btn_mark_lunch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:background="@drawable/bg_widget_btn"
                 android:gravity="center"
-                android:paddingVertical="6dp"
-                android:text="@string/widget_mark_lunch"
+                android:paddingVertical="7dp"
+                android:text="@string/widget_mark_lunch_short"
                 android:textColor="#FFFFFFFF"
                 android:textSize="11sp"
                 android:textStyle="bold"
@@ -140,45 +172,61 @@
             android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:background="@drawable/bg_widget_meal_card"
-            android:gravity="center"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:paddingHorizontal="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp">
 
-            <!-- Dinner emoji + label -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Status dot + Meal name row -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/widget_dinner_label"
-                android:textColor="#FFFFFFFF"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <!-- Status pill -->
+                <FrameLayout
+                    android:id="@+id/widget_dinner_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/bg_widget_dot_pending" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/widget_dinner_label"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <!-- Status text -->
             <TextView
                 android:id="@+id/widget_dinner_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_widget_status_pending"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="2dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/widget_status_pending"
-                android:textColor="#FFFFFFFF"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:textColor="#B0FFFFFF"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif" />
+
+            <!-- Spacer -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <!-- Mark Dinner Button -->
             <TextView
                 android:id="@+id/widget_btn_mark_dinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:background="@drawable/bg_widget_btn"
                 android:gravity="center"
-                android:paddingVertical="6dp"
-                android:text="@string/widget_mark_dinner"
+                android:paddingVertical="7dp"
+                android:text="@string/widget_mark_dinner_short"
                 android:textColor="#FFFFFFFF"
                 android:textSize="11sp"
                 android:textStyle="bold"

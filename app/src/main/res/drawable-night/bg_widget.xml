@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Widget background: night mode — deeper indigo tones -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <gradient
-        android:startColor="@color/gradient_start"
-        android:endColor="@color/gradient_end"
+        android:type="linear"
         android:angle="135"
-        android:type="linear" />
+        android:startColor="#2A3578"
+        android:centerColor="#333F8E"
+        android:endColor="#4A3E8C" />
     <corners android:radius="24dp" />
 </shape>

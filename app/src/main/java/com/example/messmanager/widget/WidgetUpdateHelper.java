@@ -3,6 +3,7 @@ package com.example.messmanager.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.example.messmanager.R;
@@ -21,8 +22,7 @@ import com.example.messmanager.util.DateUtils;
  * widget), and MealRepository (after any in-app data change).
  *
  * All database queries are synchronous — callers must invoke this
- * from a background thread (which AppWidgetProvider.onUpdate() and
- * BroadcastReceiver.onReceive() already run on for widget providers).
+ * from a background thread.
  */
 public class WidgetUpdateHelper {
 
@@ -80,42 +80,15 @@ public class WidgetUpdateHelper {
         // ── Build RemoteViews ───────────────────────────────────────
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_meal_layout);
 
-        // Remaining badge
-        views.setTextViewText(R.id.widget_remaining_badge,
-                context.getString(R.string.widget_remaining_format, remaining));
+        // ── Header: Date ────────────────────────────────────────────
+        String displayDate = DateUtils.getDisplayDate();
+        views.setTextViewText(R.id.widget_date_text, displayDate);
 
-        // Progress bar: we simulate it by adjusting the layout weight of the fill
-        // RemoteViews doesn't support setLayoutWeight directly, so we use
-        // ViewStub-like trick: set the fill width as a percentage via
-        // setInt(viewId, "setMaxWidth", px). Instead, we hide/show approach won't
-        // work well. The simplest reliable approach for RemoteViews: use a
-        // ProgressBar view in the layout. But we already have FrameLayout approach.
-        // We'll use setViewPadding to effectively shrink the fill from the right.
-        //
-        // Strategy: fill FrameLayout is match_parent. We set its right padding
-        // to (1 - percentage) * estimated_width. Since we don't know exact width,
-        // we'll use a scale that works visually.
-        float percentage = totalCoupons > 0 ? (float) mealsUsed / totalCoupons : 0f;
-        // Clamp to [0, 1]
-        percentage = Math.min(1f, Math.max(0f, percentage));
-        // We'll use a large virtual width and compute right padding
-        // Actually, a simpler approach: use setInt to setMaxWidth doesn't exist.
-        // Best approach for RemoteViews: use android.widget.ProgressBar in layout.
-        // But let's use a different reliable technique:
-        // We can use ViewFlipper or just update text. For visual appeal,
-        // let's use a simpler text-based representation alongside the bar.
-        //
-        // Actually the cleanest solution: calculate padding. The fill view is
-        // match_parent inside a weighted FrameLayout. By adding right padding
-        // we effectively "shrink" the visible fill.
-        // 1000dp is our "virtual full width". Right padding = (1-pct) * 1000dp.
-        // But we don't know dp-to-px conversion here. Let's use dp calculation.
-        float density = context.getResources().getDisplayMetrics().density;
-        int maxWidthDp = 500; // generous virtual max
-        int rightPaddingPx = (int) ((1f - percentage) * maxWidthDp * density);
-        views.setViewPadding(R.id.widget_progress_fill, 0, 0, rightPaddingPx, 0);
+        // ── Remaining coupon count (large number) ───────────────────
+        views.setTextViewText(R.id.widget_remaining_count,
+                context.getString(R.string.widget_remaining_count_format, remaining));
 
-        // Coupon text
+        // ── Used / total label ──────────────────────────────────────
         views.setTextViewText(R.id.widget_coupon_text,
                 context.getString(R.string.widget_coupons_format, mealsUsed, totalCoupons));
 
@@ -123,26 +96,35 @@ public class WidgetUpdateHelper {
         if (lunchDone) {
             views.setTextViewText(R.id.widget_lunch_status,
                     context.getString(R.string.widget_status_done));
-            views.setInt(R.id.widget_lunch_status, "setBackgroundResource",
-                    R.drawable.bg_widget_status_done);
+            views.setTextColor(R.id.widget_lunch_status, 0xCC66BB6A);  // green tint
+            views.setInt(R.id.widget_lunch_dot, "setBackgroundResource",
+                    R.drawable.bg_widget_dot_done);
+            // Hide the button since already marked
+            views.setViewVisibility(R.id.widget_btn_mark_lunch, View.GONE);
         } else {
             views.setTextViewText(R.id.widget_lunch_status,
                     context.getString(R.string.widget_status_pending));
-            views.setInt(R.id.widget_lunch_status, "setBackgroundResource",
-                    R.drawable.bg_widget_status_pending);
+            views.setTextColor(R.id.widget_lunch_status, 0xB0FFFFFF);
+            views.setInt(R.id.widget_lunch_dot, "setBackgroundResource",
+                    R.drawable.bg_widget_dot_pending);
+            views.setViewVisibility(R.id.widget_btn_mark_lunch, View.VISIBLE);
         }
 
         // ── Dinner status ───────────────────────────────────────────
         if (dinnerDone) {
             views.setTextViewText(R.id.widget_dinner_status,
                     context.getString(R.string.widget_status_done));
-            views.setInt(R.id.widget_dinner_status, "setBackgroundResource",
-                    R.drawable.bg_widget_status_done);
+            views.setTextColor(R.id.widget_dinner_status, 0xCC66BB6A);
+            views.setInt(R.id.widget_dinner_dot, "setBackgroundResource",
+                    R.drawable.bg_widget_dot_done);
+            views.setViewVisibility(R.id.widget_btn_mark_dinner, View.GONE);
         } else {
             views.setTextViewText(R.id.widget_dinner_status,
                     context.getString(R.string.widget_status_pending));
-            views.setInt(R.id.widget_dinner_status, "setBackgroundResource",
-                    R.drawable.bg_widget_status_pending);
+            views.setTextColor(R.id.widget_dinner_status, 0xB0FFFFFF);
+            views.setInt(R.id.widget_dinner_dot, "setBackgroundResource",
+                    R.drawable.bg_widget_dot_pending);
+            views.setViewVisibility(R.id.widget_btn_mark_dinner, View.VISIBLE);
         }
 
         // ── Click intents ───────────────────────────────────────────
