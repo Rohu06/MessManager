@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Mess Manager</string>
     <string name="app_logo_description">Mess Manager app logo</string>
+    <string name="splash_tagline">Smart Meal &amp; Coupon Tracker</string>
+    <string name="splash_badge_offline">✦ Offline &amp; Private</string>
+    <string name="splash_footer_version">Version 2.0</string>
     <string name="total_coupons_format">of %d total</string>
     <string name="status_done">Done</string>
     <string name="status_pending">Pending</string>
