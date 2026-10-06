@@ -2,119 +2,155 @@
 
 # 🍱 Mess Manager
 
-### A modern, offline-first Android app to track monthly mess & canteen meal coupons.
-
-[![Android](https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
-[![Java](https://img.shields.io/badge/Language-Java_11-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
-[![SDK](https://img.shields.io/badge/Target_SDK-36-4285F4?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
-[![Architecture](https://img.shields.io/badge/Architecture-MVVM-FF6F00?style=for-the-badge&logo=androidstudio&logoColor=white)](https://developer.android.com/topic/architecture)
-[![Privacy](https://img.shields.io/badge/Data-100%25_Offline-00C853?style=for-the-badge&logo=shield&logoColor=white)](#-privacy--security)
+**A modern, offline-first Android app to track monthly mess & canteen meal coupons.**
 
 <br/>
 
-**Mess Manager** replaces manual calendar tallying with an intuitive, automated coupon counter, daily meal logger, visual calendar, and smart usage analytics. Built as a personal utility app — 100% offline, zero ads, no account registration required.
+[![Android](https://img.shields.io/badge/Platform-Android-3DDC84?style=flat-square&logo=android&logoColor=white)](https://developer.android.com)
+[![Java](https://img.shields.io/badge/Language-Java_11-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
+[![SDK](https://img.shields.io/badge/Target_SDK-36-4285F4?style=flat-square&logo=android&logoColor=white)](https://developer.android.com)
+[![Architecture](https://img.shields.io/badge/Architecture-MVVM-FF6F00?style=flat-square&logo=androidstudio&logoColor=white)](https://developer.android.com/topic/architecture)
+[![Offline](https://img.shields.io/badge/Data-100%25_Offline-00C853?style=flat-square&logo=shield&logoColor=white)](#-privacy--security)
+
+<br/>
+
+> Replaces manual calendar tallying with an intuitive coupon counter, daily meal logger,
+> visual calendar, and smart usage analytics.
+> **100% offline · Zero ads · No account required.**
 
 </div>
 
 ---
 
-## 📸 App Screenshots
+## 📸 Screenshots
 
 <div align="center">
 
-| 🏠 **Dashboard** | 📅 **Calendar View** | 📊 **Statistics** | ⚙️ **Settings** |
-| :-: | :-: | :-: | :-: |
-| <img src="screenshots/dashboard.jpg" width="210" alt="Dashboard"/> | <img src="screenshots/calendar.jpg" width="210" alt="Calendar"/> | <img src="screenshots/statistics.jpg" width="210" alt="Statistics"/> | <img src="screenshots/settings.jpg" width="210" alt="Settings"/> |
+| 🏠 Dashboard | 📅 Calendar | 📊 Statistics | ⚙️ Settings |
+|:---:|:---:|:---:|:---:|
+| <img src="screenshots/dashboard.jpg" width="200" alt="Dashboard"/> | <img src="screenshots/calendar.jpg" width="200" alt="Calendar"/> | <img src="screenshots/statistics.jpg" width="200" alt="Statistics"/> | <img src="screenshots/settings.jpg" width="200" alt="Settings"/> |
 
 </div>
 
 ---
 
-## ✨ Key Features
+## ✨ Features
+
+<table>
+<tr>
+<td valign="top" width="50%">
 
 ### 📊 Smart Dashboard
-- **Live Circular Progress**: Real-time visualization of remaining coupons versus total monthly allowance.
-- **At-a-Glance Stat Chips**: Total Meals Used, Lunch Count, and Dinner Count summary boxes.
-- **Today's Status Pills**: Instant visual status (Pending / Done) for Lunch & Dinner.
-- **One-Tap Quick Mark**: Convenient quick-action buttons to log meals in seconds.
-- **Fluid Micro-Animations**: Satisfying count-up animations for statistics and press-scale tactile feedback on buttons.
+- **Live Circular Progress** — Real-time coupon usage ring
+- **Stat Chips** — Total / Lunch / Dinner at a glance
+- **Today's Status Pills** — Pending or Done for each meal
+- **One-Tap Quick Mark** — Log meals in seconds
+- **Micro-Animations** — Count-up stats & tactile button feedback
 
-### 📅 Interactive Monthly Calendar
-- Color-coded daily indicators:
-  - 🟢 **Both Meals**: Logged both Lunch and Dinner.
-  - 🟡 **One Meal**: Logged either Lunch or Dinner.
-  - 🔴 **Skipped**: No meals taken on that date.
-- Tap any date to view or modify logged entries with a seamless shared element transition.
+</td>
+<td valign="top" width="50%">
+
+### 📅 Interactive Calendar
+- **Color-coded indicators** per day:
+  - 🟢 Both meals logged
+  - 🟡 One meal logged
+  - 🔴 No meals (skipped)
+- Tap any date to view or edit entries
+- Seamless shared-element transitions
+
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
 
 ### 📈 Analytics & Insights
-- **Meal Distribution Chart**: Half-donut chart illustrating Lunch vs. Dinner vs. Skipped proportion.
-- **Smart Pace Prediction**: Dynamic algorithm estimating whether your coupon balance will last the remaining cycle days.
-- **Daily Average Tracking**: Calculates average meals consumed per day.
+- **Meal Distribution Chart** — Half-donut Lunch vs. Dinner vs. Skipped
+- **Smart Pace Prediction** — Will your coupons last the cycle?
+- **Daily Average Tracking** — Meals consumed per active day
+
+</td>
+<td valign="top" width="50%">
 
 ### ⚙️ Customizable Settings
-- **Custom Billing Cycle**: Set any cycle start date (e.g., 21st to 20th of next month).
-- **Coupon Manager**: Adjust your monthly coupon quota anytime.
-- **Meal Reminders with Quick Actions**: Scheduled local notifications for Lunch and Dinner times. Mark meals as eaten or skipped directly from your notification shade without opening the app.
-- **Backup & Export**: Export complete SQLite database backups, import previous backups, and export history to CSV.
-- **Dark Mode**: Native Android Dark Mode support with smooth theme switching.
+- **Custom Billing Cycle** — Set any start date (e.g., 21st → 20th)
+- **Coupon Manager** — Adjust monthly quota anytime
+- **Meal Reminders** — Notifications with quick-action mark from shade
+- **Backup & Export** — SQLite backup, restore, and CSV export
+- **Dark Mode** — Smooth native theme switching
+
+</td>
+</tr>
+</table>
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## 🛠️ Tech Stack
 
-```text
-               ┌─────────────────────────────────────────┐
-               │           UI Layer (Activities)         │
-               │  Dashboard | Calendar | Stats | Settings │
-               └────────────────────┬────────────────────┘
-                                    │ LiveData
-                                    ▼
-               ┌─────────────────────────────────────────┐
-               │             ViewModel Layer             │
-               │  (DashboardViewModel, StatsViewModel)   │
-               └────────────────────┬────────────────────┘
-                                    │ Reactive Queries
-                                    ▼
-               ┌─────────────────────────────────────────┐
-               │            Repository Layer             │
-               │             (MealRepository)            │
-               └────────────────────┬────────────────────┘
-                                    │ DAO
-                                    ▼
-               ┌─────────────────────────────────────────┐
-               │     Local Data Layer (Room / SQLite)    │
-               └─────────────────────────────────────────┘
+<div align="center">
+
+| Layer | Technology |
+|:---|:---|
+| **UI** | Material Design 3 · ViewBinding · CoordinatorLayout · NestedScrollView |
+| **Architecture** | MVVM + Repository Pattern |
+| **Local Storage** | Room Database (SQLite) · SharedPreferences |
+| **Charts** | MPAndroidChart |
+| **Background Work** | WorkManager · AlarmManager |
+| **Language** | Java 11 |
+| **Min / Target SDK** | API 24 (Android 7.0) / API 36 |
+
+</div>
+
+<br/>
+
+### Architecture Diagram
+
+```
+┌──────────────────────────────────────────┐
+│          UI Layer  (Activities)          │
+│  Dashboard · Calendar · Stats · Settings │
+└────────────────────┬─────────────────────┘
+                     │  LiveData / ViewModels
+                     ▼
+┌──────────────────────────────────────────┐
+│           ViewModel Layer                │
+│   DashboardViewModel · StatsViewModel    │
+└────────────────────┬─────────────────────┘
+                     │  Reactive Queries
+                     ▼
+┌──────────────────────────────────────────┐
+│           Repository Layer               │
+│              MealRepository              │
+└────────────────────┬─────────────────────┘
+                     │  DAO
+                     ▼
+┌──────────────────────────────────────────┐
+│      Local Data Layer (Room / SQLite)    │
+└──────────────────────────────────────────┘
 ```
 
-- **UI Framework**: Material Design 3 (`com.google.android.material`), ViewBinding, CoordinatorLayout, NestedScrollView
-- **Local Persistence**: Room Database (`androidx.room`) & Android Preferences (`SharedPreferences`)
-- **Architecture Pattern**: MVVM + Repository Pattern
-- **Charting**: MPAndroidChart (`com.github.PhilJay:MPAndroidChart`)
-- **Background Tasks**: AndroidX WorkManager & AlarmManager notifications
-
 ---
 
-## 📂 Project Directory Structure
+## 📂 Project Structure
 
-```text
+```
 com.example.messmanager/
 ├── data/
-│   ├── backup/          # Database backup and restore utilities
-│   ├── local/           # Room Database, DAO interfaces, and Entities
-│   ├── preferences/     # AppPreferences (coupon limits & cycle settings)
-│   └── repository/      # Central data repository layer
-├── notification/        # Local notification triggers and channels
+│   ├── backup/          # DB backup & restore utilities
+│   ├── local/           # Room DB, DAO interfaces, Entities
+│   ├── preferences/     # AppPreferences (coupon limits & cycle)
+│   └── repository/      # Central data repository
+├── notification/        # Local notification channels & triggers
 ├── ui/
-│   ├── addmeal/         # Add and Edit meal entry screens
+│   ├── addmeal/         # Add / Edit meal entry screens
 │   ├── backup/          # Backup & Restore UI
-│   ├── calendar/        # Monthly interactive calendar UI
-│   ├── dashboard/       # Main hero dashboard and status cards
+│   ├── calendar/        # Monthly interactive calendar
+│   ├── dashboard/       # Hero dashboard & status cards
 │   ├── history/         # Searchable meal history log
-│   ├── reminders/       # Notification reminder settings UI
+│   ├── reminders/       # Reminder settings UI
 │   ├── settings/        # App configuration & preferences
-│   ├── splash/          # AndroidX splash screen
-│   └── statistics/      # Analytical charts & pace prediction
-└── util/                # Date math, formatters, and helper classes
+│   ├── splash/          # AndroidX SplashScreen
+│   └── statistics/      # Charts & pace prediction
+└── util/                # Date math, formatters, helpers
 ```
 
 ---
@@ -122,33 +158,46 @@ com.example.messmanager/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Android Studio (2024.2+ recommended)
-- JDK 11
-- Device or Emulator running Android 7.0 (API 24) or higher
 
-### Build Instructions
+| Requirement | Version |
+|:---|:---|
+| Android Studio | 2024.2+ (recommended) |
+| JDK | 11 |
+| Android Device / Emulator | API 24+ (Android 7.0+) |
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Rohu06/MessManager.git
-   cd MessManager
-   ```
+### Build & Run
 
-2. **Open & Build in Android Studio**:
-   - Open project in Android Studio.
-   - Build via Gradle: `./gradlew assembleDebug`
+```bash
+# 1. Clone the repository
+git clone https://github.com/Rohu06/MessManager.git
+cd MessManager
+
+# 2. Open in Android Studio, then build via Gradle:
+./gradlew assembleDebug
+```
+
+> **Tip:** Open directly in Android Studio and let Gradle sync automatically before running on a device or emulator.
 
 ---
 
 ## 🔒 Privacy & Security
 
-- **100% Local**: All records are stored exclusively in an encrypted on-device SQLite database.
-- **No Cloud Services**: Zero remote server calls, zero telemetry, and zero tracking.
+| | |
+|:---:|:---|
+| 🔐 | **100% Local** — All data stored exclusively on-device in an SQLite database |
+| 🚫 | **No Cloud** — Zero remote server calls, zero telemetry, zero tracking |
+| 👤 | **No Account** — No sign-up, no login, no personal data collected |
+
+---
+
+## 📄 License
+
+This project is open for personal and educational use.
 
 ---
 
 <div align="center">
 
-Crafted for personal meal tracking 🍱
+Crafted with ❤️ for personal meal tracking 🍱
 
 </div>
